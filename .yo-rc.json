@@ -1,0 +1,7 @@
+{
+  "generator-phaser": {
+    "projectName": "scatterjam-2017",
+    "esVersion": 6,
+    "gameFolder": "boilerplate"
+  }
+}
