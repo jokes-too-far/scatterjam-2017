@@ -3,9 +3,13 @@ class Menu extends Phaser.State {
   constructor() {
     super();
   }
-  
+
   create() {
-    var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Gameover', {
+    var winMessage = "Delicious Candy!"
+    if (this.game.ba.win === false) {
+      winMessage = "Nooo... my candy! q.q"
+    }
+    var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, winMessage, {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
@@ -20,7 +24,7 @@ class Menu extends Phaser.State {
   }
 
   resetGlobalVariables(){
-
+    this.game.ba = {};
   }
 
   update() {}

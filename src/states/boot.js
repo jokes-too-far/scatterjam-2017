@@ -10,6 +10,7 @@ class Boot extends Phaser.State {
 
   create() {
     this.game.input.maxPointers = 1;
+    this.game.ba = {};
 
     //setup device scaling
     if (this.game.device.desktop) {
