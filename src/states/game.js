@@ -3,6 +3,7 @@ import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 import SandCastle from '../prefabs/sandcastleSmall'
 import HeaderText from '../prefabs/headerText'
+import SandEmitter from '../prefabs/sandEmitter'
 
 var escapeKey;
 var ralphLaneY;
@@ -11,6 +12,7 @@ var castleLaneY;
 var timer;
 var ralph, gordie
 var castles = [];
+var sandEmitter;
 
 class Game extends Phaser.State {
 
@@ -36,6 +38,7 @@ class Game extends Phaser.State {
     playerLaneY = (height / 3) + 64 * 2.5
     castleLaneY = height / 3 + 32
 
+    sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
 
@@ -50,6 +53,7 @@ class Game extends Phaser.State {
          gordie.animations.play("build");
          castle.addHealth();
          console.log("buffed health to ", castle.health)
+         this.emitSandParticles(gordie.x)
        }
      }
 
@@ -65,6 +69,7 @@ class Game extends Phaser.State {
      else {
        // add a new castle
        castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
+       this.emitSandParticles(gordie.x)
        gordie.animations.play("build");
      }
     })
@@ -106,6 +111,13 @@ class Game extends Phaser.State {
     }
     ralph.body.velocity.x = 50
     this.game.camera.shake(0.005, 50);
+
+    this.emitSandParticles(sandcastle.x)
+  }
+
+  emitSandParticles(x) {
+    sandEmitter.x = x
+    sandEmitter.start(true, 200, null, 5)
   }
 
   endGame() {
@@ -115,7 +127,7 @@ class Game extends Phaser.State {
   }
 
   moveToEndState() {
-    var assetsToClear = [ralph, gordie].concat(castles)
+    var assetsToClear = [sandEmitter, ralph, gordie].concat(castles)
     castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }

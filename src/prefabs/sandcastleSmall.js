@@ -11,7 +11,6 @@ class SandcastleSmall extends Phaser.Sprite {
       this.body.destroy()
     })
 
-
     this.health = 1
 
     game.add.existing(this)
