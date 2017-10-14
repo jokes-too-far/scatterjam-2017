@@ -25,6 +25,7 @@ class Gordon extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
+    this.bringToTop()
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
       this.animations.stop(null, true);
