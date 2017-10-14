@@ -41,15 +41,12 @@ class EndLevel extends Phaser.State {
   resetGlobalVariables(){
     var currentLevel = this.game.ba.currentLevel + 1;
     var levels = this.game.cache.getJSON('levels');
-    console.log(levels)
     var nextLevel = null;
     for(var level of levels){
       if (level && level.id === currentLevel){
         nextLevel = level;
       }
     }
-    console.log(currentLevel)
-    console.log(nextLevel)
     this.game.ba = {
       dev_mode: true,
       currentLevel:currentLevel,
