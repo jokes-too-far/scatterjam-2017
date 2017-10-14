@@ -1,5 +1,7 @@
 import Ralph from '../prefabs/ralph'
+import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
+import SandCastle from '../prefabs/sandcastleSmall'
 
 var escapeKey;
 var ralphLaneY;
@@ -27,16 +29,24 @@ class Game extends Phaser.State {
     timer.start()
     new TimerDisplay(this.game, timer)
 
+
     var height = this.game.height
     ralphLaneY = height / 3
     playerLaneY = (height / 3) * 2
     new Ralph(this.game, this.game.width, ralphLaneY, 0);
+    new Gordon(this.game, 50, playerLaneY, 0);
+
+    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
+    buildButton.onDown.add(() => {
+      const x = this.game.rnd.between(100, 500)
+      new SandCastle(this.game, x, ralphLaneY)
+    })
   }
 
   update() {}
 
   endGame() {
-    this.game.state.start('gameover')
+    this.game.state.start('gameover', false)
   }
 
   setUpDebug() {
