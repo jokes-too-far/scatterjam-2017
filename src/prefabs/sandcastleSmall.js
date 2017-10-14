@@ -5,6 +5,8 @@ class SandcastleSmall extends Phaser.Sprite {
     super(game, x, y, 'sandcastleSmall')
     game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true
+    // Set Anchor to the center of your sprite
+    this.anchor.setTo(.5);
     this.events.onKilled.add(() => {
       this.body.destroy()
     })

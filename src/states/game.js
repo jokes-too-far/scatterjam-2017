@@ -52,7 +52,7 @@ class Game extends Phaser.State {
      }
      else {
        // add a new castle
-       castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
+       castles.push(new SandCastle(this.game, gordie.x, ralphLaneY + 32))
      }
     })
   }
@@ -100,6 +100,7 @@ class Game extends Phaser.State {
       timer.stop()
     }, this)
   }
+
 
 }
 
