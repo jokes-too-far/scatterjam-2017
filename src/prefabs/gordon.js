@@ -7,10 +7,9 @@ var space;
 class Gordon extends Phaser.Sprite {
 
   //initialization code in the constructor
-  constructor(game, x, y, frame) {
-      x = x - (SPRITE_SIZE / 2)
+  constructor(game, y, frame) {
       y = y - (SPRITE_SIZE / 2)
-      super(game, x, y, 'gordon', frame);
+      super(game, SPRITE_SIZE, y, 'gordon', frame);
       console.log("I AM GORDON, HEAR ME RAWR")
       game.physics.enable(this, Phaser.Physics.ARCADE);
       game.add.existing(this);
@@ -51,6 +50,9 @@ class Gordon extends Phaser.Sprite {
         } else if (this.body.velocity.x < 0) {
           this.body.velocity.x += ACCELERATION
         }
+    }
+    if (this.left < 0 || this.right > this.game.width) {
+      this.body.velocity.x = 0
     }
 
   }

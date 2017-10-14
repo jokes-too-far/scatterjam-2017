@@ -33,7 +33,7 @@ class Game extends Phaser.State {
     ralphLaneY = height / 3
     playerLaneY = (height / 3) * 2 + 64
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    var gordie = new Gordon(this.game, 50, playerLaneY, 0);
+    var gordie = new Gordon(this.game, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
