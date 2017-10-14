@@ -8,6 +8,7 @@ class Ralph extends Phaser.Sprite {
     y = y - (SPRITE_SIZE / 2)
     super(game, x, y, 'ralph', frame);
     console.log("I AM RALPH, I AM MEAN")
+    game.physics.enable(this, Phaser.Physics.ARCADE);
     game.add.existing(this);
     this.lastvelocity = 0
 
