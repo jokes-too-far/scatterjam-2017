@@ -51,7 +51,7 @@ class Game extends Phaser.State {
   }
 
   collisionHandler(ralph, sandcastle) {
-    sandcastle.kill()
+    sandcastle.damage(1)
     ralph.body.velocity.x = 50
   }
 
