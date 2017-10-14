@@ -110,14 +110,13 @@ class Game extends Phaser.State {
 
   endGame() {
     this.timerDisplay.kill();
-    //this will persist across game loops if this isn't cleaned up correctly.
-    castles = [];
     //pass ralph so we can do some animationy things.
     this.moveToEndState()
   }
 
   moveToEndState() {
     var assetsToClear = [ralph, gordie].concat(castles)
+    castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
 
