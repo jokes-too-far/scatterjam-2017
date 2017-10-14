@@ -1,4 +1,4 @@
-
+const maxHealth = 5;
 class SandcastleSmall extends Phaser.Sprite {
 
   constructor(game, x, y) {
@@ -10,9 +10,15 @@ class SandcastleSmall extends Phaser.Sprite {
     })
 
 
-    this.health = 4
+    this.health = 1
 
     game.add.existing(this)
+  }
+
+  addHealth(){
+    if(this.health< maxHealth){
+      this.health++;
+    }
   }
 
   update() {
