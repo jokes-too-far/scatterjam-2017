@@ -6,9 +6,10 @@ import SandCastle from '../prefabs/sandcastleSmall'
 var escapeKey;
 var ralphLaneY;
 var playerLaneY;
+var castleLaneY;
 var timer;
-var ralph, gordie
-var castles = []
+var ralph;
+var castles = [];
 
 class Game extends Phaser.State {
 
@@ -30,15 +31,18 @@ class Game extends Phaser.State {
 
 
     var height = this.game.height
-    ralphLaneY = height / 3
+    ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) * 2 + 64
+    castleLaneY = height / 3 + 32
+
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    gordie = new Gordon(this.game, playerLaneY, 0);
+    var gordie = new Gordon(this.game, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
       // if there is a castle above gordie
      var found = 'false';
+     var ralphFound = 'false';
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
@@ -47,12 +51,18 @@ class Game extends Phaser.State {
        }
      }
 
-     if(found == 'true'){
+     // is ralph above gordie?
+     if(gordie.x <= ralph.x + (ralph.width / 2) && gordie.x >= ralph.x - (ralph.width / 2)){
+       ralphFound = 'true';
+       console.log("How dare you build on me?")
+     }
+
+     if(found == 'true' || ralphFound == 'true'){
        //nothing to do for now
      }
      else {
        // add a new castle
-       castles.push(new SandCastle(this.game, gordie.x, ralphLaneY + 32))
+       castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
      }
     })
   }
