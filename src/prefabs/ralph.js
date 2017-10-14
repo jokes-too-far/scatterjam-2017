@@ -48,7 +48,7 @@ class Ralph extends Phaser.Sprite {
     //play animation of bro eating candy
     const timer = this.game.time.create(false)
     timer.add(Phaser.Timer.SECOND * 1.5, () => {
-      this.game.state.start('gameover')
+      this.game.state.start('endLevel', false)
     })
     timer.start();
   }

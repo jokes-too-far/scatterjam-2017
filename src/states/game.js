@@ -20,10 +20,7 @@ class Game extends Phaser.State {
     //Level timer.
     timer = this.game.time.create(false)
     this.game.ba.timer = timer
-    //TODO: make this time configurable via some level config?
-    // This is currently set so that you can just barely lose the game if you let Ralph run
-    // uninhibited.
-    timer.add(Phaser.Timer.SECOND * 7, () => {
+    timer.add(Phaser.Timer.SECOND * this.game.ba.level.levelTimeSeconds, () => {
       this.endGame()
     })
     timer.start()
@@ -46,7 +43,7 @@ class Game extends Phaser.State {
   update() {}
 
   endGame() {
-    this.game.state.start('gameover', false)
+    this.game.state.start('endLevel', false)
   }
 
   setUpDebug() {
