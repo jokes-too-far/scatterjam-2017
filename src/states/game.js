@@ -28,6 +28,7 @@ class Game extends Phaser.State {
     timer.start()
     new TimerDisplay(this.game, timer)
 
+
     var height = this.game.height
     ralphLaneY = height / 3
     playerLaneY = (height / 3) * 2

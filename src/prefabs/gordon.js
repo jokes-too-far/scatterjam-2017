@@ -10,10 +10,47 @@ class Gordon extends Phaser.Sprite {
       super(game, x, y, 'gordon', frame);
       console.log("I AM GORDON, HEAR ME RAWR")
       game.add.existing(this);
+
+          //calculate the velocity based on grid spaces so we don't have screen size issues.
+          var grids = this.game.ba.level.gridSpaces
+          var widthPerGrid = this.game.width / grids
+      this.velocity = (widthPerGrid / this.game.time.desiredFps) * 2;
+  }
+
+  //move right when the keyboard is pressed
+  moveRight() {
+    //TODO: figure out collision, and destrcution and delay mechanics.
+    //x == 0 is the left side of the screen
+    if (this.x < this.game.width) {
+      this.x = this.x + this.velocity;
+      return;
+    }
+  }
+
+  //move left when the keyboard is pressed
+  moveLeft() {
+    //TODO: figure out collision, and destrcution and delay mechanics.
+    //x == 0 is the left side of the screen
+    if (this.x < this.game.width) {
+      this.x = this.x - this.velocity;
+      return;
+    }
   }
 
   //Code ran on each frame of game
   update() {
+    if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    {
+        this.moveLeft();
+    }
+    else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    {
+        this.moveRight();
+    }
+    else
+    {
+        // do nothing
+    }
 
   }
 
