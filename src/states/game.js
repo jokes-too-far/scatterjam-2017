@@ -1,4 +1,5 @@
 import Ralph from '../prefabs/ralph'
+import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 
 var escapeKey;
@@ -31,6 +32,7 @@ class Game extends Phaser.State {
     ralphLaneY = height / 3
     playerLaneY = (height / 3) * 2
     new Ralph(this.game, this.game.width, ralphLaneY, 0);
+    new Gordon(this.game, 50, playerLaneY, 0);
   }
 
   update() {}
