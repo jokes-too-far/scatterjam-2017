@@ -3,11 +3,18 @@ class SandcastleSmall extends Phaser.Sprite {
 
   constructor(game, x, y) {
     super(game, x, y, 'sandcastleSmall')
-    game.physics.enable(this, Phaser.Physics.ARCADE);
+    game.physics.enable(this, Phaser.Physics.ARCADE)
+    this.body.immovable = true
+    this.events.onKilled.add(() => {
+      this.body.destroy()
+    })
     game.add.existing(this)
   }
 
-  update() {}
+  update() {
+    // Uncomment this to see the physics collision box
+    // this.game.debug.body(this);
+  }
 
 }
 
