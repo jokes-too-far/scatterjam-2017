@@ -21,26 +21,8 @@ class Ralph extends Phaser.Sprite {
       this.body.velocity.x  -= 2
     }
 
-    if (this.x <= 0) {
-      this.endGame()
-    }
-
     // Uncomment this to see the physics collision box
     //this.game.debug.body(this);
-  }
-
-  endGame() {
-    if(this.game.ba.win === false){
-      return;
-    }
-    this.game.ba.win = false;
-    this.game.ba.timer.stop();
-    //play animation of bro eating candy
-    const timer = this.game.time.create(false)
-    timer.add(Phaser.Timer.SECOND * 1.5, () => {
-      this.game.state.start('endLevel', false, true, this)
-    })
-    timer.start();
   }
 
 }

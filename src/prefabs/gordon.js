@@ -17,7 +17,8 @@ class Gordon extends Phaser.Sprite {
       // Set Anchor to the center of your sprite
       this.anchor.setTo(.5);
 
-      this.animations.add('build', [1,2,3,4,5,6,7,8], 20, true);
+      this.animations.add('run', [0,1,2,3,4,5,6,7], 20, false);
+      this.animations.add('build', [8,9,10,11,12,13,14,15,8,9,10,11,12,13,14,15], 30, false);
       this.facing = 'right';
       // Invert scale.x to flip left/right
       this.scale.x *= -1;
@@ -25,10 +26,16 @@ class Gordon extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
+    this.bringToTop()
+    if (this.animations.currentAnim.name =="build" && this.animations.currentAnim.isPlaying==true){
+      //console.log('current anim: ', this.animations.currentAnim.name, ', isplaying = ', this.animations.currentAnim.isPlaying)
+      return;
+    }
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-      this.animations.stop(null, true);
-      this.frame = 0;
+    if (this.animations.currentAnim.name !="run" || this.animations.currentAnim.isPlaying==false){
+      this.animations.play("run");
+    }
 
       if (this.facing == 'right'){
         // Invert scale.x to flip left/right
@@ -40,8 +47,10 @@ class Gordon extends Phaser.Sprite {
     }
     else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-      this.animations.stop(null, true);
-      this.frame = 0;
+
+      if (this.animations.currentAnim.name !="run" || this.animations.currentAnim.isPlaying==false){
+        this.animations.play("run");
+      }
       if (this.facing == 'left'){
         // Invert scale.x to flip left/right
         this.scale.x *= -1;
@@ -62,8 +71,14 @@ class Gordon extends Phaser.Sprite {
     if (this.left < 0 || this.right > this.game.width) {
       this.body.velocity.x = 0
     }
-
   }
+
+  startBuilding(){
+
+    this.body.velocity.x = 0
+    this.animations.play("build");
+  }
+
 
 }
 
