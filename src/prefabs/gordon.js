@@ -1,6 +1,6 @@
 
 //Documentation for Phaser's (2.6.2) sprites:: phaser.io/docs/2.6.2/Phaser.Sprite.html
-class Boy extends Phaser.Sprite {
+class Gordon extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, frame) {
@@ -14,4 +14,4 @@ class Boy extends Phaser.Sprite {
 
 }
 
-export default Boy;
+export default Gordon;
