@@ -2,34 +2,29 @@ class Preloader extends Phaser.State {
 
   constructor() {
     super();
-    this.asset = null;
-    this.ready = false;
   }
 
   preload() {
     //setup loading bar
-    this.asset = this.add.sprite(this.game.width * 0.5 - 110, this.game.height * 0.5 - 10, 'preloader');
-    this.load.setPreloadSprite(this.asset);
+    const loadingBar = this.add.sprite(this.game.width * 0.5 - 110, this.game.height * 0.5 - 10, 'preloader');
+    this.load.setPreloadSprite(loadingBar);
 
     this.load.image('logo-stl', 'assets/logos/stl.png');
     this.load.spritesheet('logo-studio', 'assets/logos/studio.png', 128, 128);
+
     //Setup loading and its events
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.loadResources();
   }
 
-  update() {
-    if (this.ready) {
-      this.game.state.start('splashScreen');
-    }
-  }
+  update() {}
 
   loadResources() {
     this.game.load.spritesheet('gordon', '../../assets/gordong.png', 128, 128, 1)
   }
 
   onLoadComplete() {
-    this.ready = true;
+    this.game.state.start('splashScreen');
   }
 }
 
