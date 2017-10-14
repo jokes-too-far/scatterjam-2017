@@ -1,3 +1,5 @@
+import HeaderText from '../prefabs/HeaderText'
+
 class Menu extends Phaser.State {
 
   constructor() {
@@ -9,10 +11,7 @@ class Menu extends Phaser.State {
     if (this.game.ba.win === false) {
       winMessage = "Nooo... my candy! q.q"
     }
-    var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, winMessage, {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
-    });
-    text.anchor.set(0.5);
+    new HeaderText(this.game, winMessage)
 
     this.saveVarsToLocalStorage();
 

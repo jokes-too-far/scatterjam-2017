@@ -1,4 +1,5 @@
 import Background from '../prefabs/background'
+import HeaderText from '../prefabs/HeaderText'
 
 class Menu extends Phaser.State {
 
@@ -10,10 +11,7 @@ class Menu extends Phaser.State {
     new Background(this.game)
 
     this.assetsToClear = []
-    var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Beach Annihilation!', {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
-    });
-    text.anchor.set(0.5);
+    const text = new HeaderText(this.game, 'Beach Annihilation!')
     this.assetsToClear.push(text)
 
     this.input.onDown.add(this.startGame, this);
