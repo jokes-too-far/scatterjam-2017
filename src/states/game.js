@@ -1,8 +1,8 @@
-import Gordon from '../prefabs/gordon'
+import Ralph from '../prefabs/ralph'
 import TimerDisplay from '../prefabs/timerDisplay'
 
 var escapeKey;
-var gordonLaneY;
+var ralphLaneY;
 var playerLaneY;
 var timer;
 
@@ -19,7 +19,7 @@ class Game extends Phaser.State {
     timer = this.game.time.create(false)
     this.game.ba.timer = timer
     //TODO: make this time configurable via some level config?
-    // This is currently set so that you can just barely lose the game if you let gordon run
+    // This is currently set so that you can just barely lose the game if you let Ralph run
     // uninhibited.
     timer.add(Phaser.Timer.SECOND * 7, () => {
       this.endGame()
@@ -28,9 +28,9 @@ class Game extends Phaser.State {
     new TimerDisplay(this.game, timer)
 
     var height = this.game.height
-    gordonLaneY = height / 3
+    ralphLaneY = height / 3
     playerLaneY = (height / 3) * 2
-    new Gordon(this.game, this.game.width, gordonLaneY, 0);
+    new Ralph(this.game, this.game.width, ralphLaneY, 0);
   }
 
   update() {}
