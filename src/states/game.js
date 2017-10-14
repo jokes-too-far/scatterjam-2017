@@ -4,6 +4,7 @@ import TimerDisplay from '../prefabs/timerDisplay'
 import SandCastle from '../prefabs/sandcastleSmall'
 import HeaderText from '../prefabs/headerText'
 import SandEmitter from '../prefabs/sandEmitter'
+import SandMeter from '../prefabs/sandMeter'
 
 var escapeKey;
 var ralphLaneY;
@@ -13,6 +14,7 @@ var timer;
 var ralph, gordie
 var castles = [];
 var sandEmitter;
+var sandMeter;
 
 class Game extends Phaser.State {
 
@@ -41,9 +43,15 @@ class Game extends Phaser.State {
     sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
+    sandMeter = new SandMeter(this.game);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
+      if (gordie.x > this.game.width * 0.8) {
+        const success = sandMeter.addSand()
+        return;
+      }
+
       // if there is a castle above gordie
      var found = 'false';
      var ralphFound = 'false';
@@ -122,12 +130,11 @@ class Game extends Phaser.State {
 
   endGame() {
     this.timerDisplay.kill();
-    //pass ralph so we can do some animationy things.
     this.moveToEndState()
   }
 
   moveToEndState() {
-    var assetsToClear = [sandEmitter, ralph, gordie].concat(castles)
+    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie].concat(castles)
     castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }

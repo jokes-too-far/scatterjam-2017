@@ -1,5 +1,5 @@
 const SPRITE_SIZE=128;
-const MAX_VELOCITY = -200
+const MAX_VELOCITY = -50
 var space;
 
 class Ralph extends Phaser.Sprite {

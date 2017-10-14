@@ -28,6 +28,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('tileable-horizon-sand', '../../assets/tileable-horizon-sand.png')
     this.game.load.image('gradient', '../../assets/gradient.png')
     this.game.load.image('sandParticle', '../../assets/sandParticle.png')
+    this.game.load.image('meterFill', '../../assets/pixel.png')
 
   }
 
