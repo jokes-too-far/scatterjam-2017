@@ -1,6 +1,8 @@
 import Background from '../prefabs/background'
 import HeaderText from '../prefabs/HeaderText'
 
+var music
+
 class Menu extends Phaser.State {
 
   constructor() {
@@ -13,7 +15,8 @@ class Menu extends Phaser.State {
     this.assetsToClear = []
     const text = new HeaderText(this.game, 'Beach Annihilation!')
     this.assetsToClear.push(text)
-
+    music = this.game.add.audio('title');
+    music.play();
     this.input.onDown.add(this.startGame, this);
   }
 
@@ -23,6 +26,7 @@ class Menu extends Phaser.State {
     for (const asset of this.assetsToClear) {
       asset.kill()
     }
+    music.stop()
     this.game.state.start('game', false);
   }
 

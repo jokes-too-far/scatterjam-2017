@@ -30,6 +30,8 @@ class Preloader extends Phaser.State {
     this.game.load.image('sandParticle', '../../assets/sandParticle.png')
     this.game.load.image('meterFill', '../../assets/pixel.png')
 
+    this.game.load.audio('title', ['assets/sounds/title.wav']);
+
   }
 
   onLoadComplete() {
