@@ -22,7 +22,8 @@ class Gordon extends Phaser.Sprite {
     //TODO: figure out collision, and destrcution and delay mechanics.
     //x == 0 is the left side of the screen
     if (this.x < this.game.width) {
-      this.x = this.x + this.velocity;
+      let distance = Math.min(this.velocity * this.game.time.elapsed / 15, Math.abs(this.velocity));
+      this.x = this.x + distance;
       return;
     }
   }
@@ -31,8 +32,9 @@ class Gordon extends Phaser.Sprite {
   moveLeft() {
     //TODO: figure out collision, and destrcution and delay mechanics.
     //x == 0 is the left side of the screen
-    if (this.x < this.game.width) {
-      this.x = this.x - this.velocity;
+    if (this.x >=0 ) {
+      let distance = Math.min(this.velocity * this.game.time.elapsed / 15, Math.abs(this.velocity));
+      this.x = this.x - distance;
       return;
     }
   }
