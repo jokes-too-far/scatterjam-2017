@@ -6,6 +6,10 @@ class EndLevel extends Phaser.State {
     super();
   }
 
+  init(ralph) {
+    this.ralph = ralph
+  }
+
   create() {
     var winMessage = "Delicious Candy!"
     if (this.game.ba.win === false) {
@@ -49,7 +53,9 @@ class EndLevel extends Phaser.State {
     }
   }
 
-  update() {}
+  update() {
+    this.ralph.body.velocity.x += 50
+  }
 
   progressGame () {
     var winning = this.game.ba.win
