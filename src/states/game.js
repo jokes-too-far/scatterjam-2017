@@ -70,6 +70,20 @@ class Game extends Phaser.State {
   }
 
   update() {
+    if (ralph.x < 0) {
+      if(this.game.ba.win === false){
+        return;
+      }
+      this.game.ba.win = false;
+      this.game.ba.timer.stop();
+      //play animation of bro eating candy
+      const timer = this.game.time.create(false)
+      timer.add(Phaser.Timer.SECOND * 1.5, () => {
+        this.moveToEndState()
+      })
+      timer.start();
+    }
+
     for (const sandcastle of castles) {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
     }
@@ -95,10 +109,14 @@ class Game extends Phaser.State {
 
   endGame() {
     this.timerDisplay.kill();
-    var assetsToClear = [ralph, gordie].concat(castles)
     //this will persist across game loops if this isn't cleaned up correctly.
     castles = [];
     //pass ralph so we can do some animationy things.
+    this.moveToEndState()
+  }
+
+  moveToEndState() {
+    var assetsToClear = [ralph, gordie].concat(castles)
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
 
