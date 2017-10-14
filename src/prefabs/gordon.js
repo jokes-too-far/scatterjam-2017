@@ -10,10 +10,15 @@ class Gordon extends Phaser.Sprite {
       super(game, x, y, 'gordon', frame);
       console.log("I AM GORDON, HEAR ME RAWR")
       game.add.existing(this);
+      // Set Anchor to the center of your sprite
+      this.anchor.setTo(.5,.5);
+      this.facing = 'right';
+      // Invert scale.x to flip left/right
+      this.scale.x *= -1;
 
-          //calculate the velocity based on grid spaces so we don't have screen size issues.
-          var grids = this.game.ba.level.gridSpaces
-          var widthPerGrid = this.game.width / grids
+      //calculate the velocity based on grid spaces so we don't have screen size issues.
+      var grids = this.game.ba.level.gridSpaces
+      var widthPerGrid = this.game.width / grids
       this.velocity = (widthPerGrid / this.game.time.desiredFps) * 2;
   }
 
@@ -21,6 +26,13 @@ class Gordon extends Phaser.Sprite {
   moveRight() {
     //TODO: figure out collision, and destrcution and delay mechanics.
     //x == 0 is the left side of the screen
+
+    if (this.facing == 'left'){
+      // Invert scale.x to flip left/right
+      this.scale.x *= -1;
+      this.facing = 'right';
+    }
+
     if (this.x < this.game.width) {
       let distance = Math.min(this.velocity * this.game.time.elapsed / 15, Math.abs(this.velocity));
       this.x = this.x + distance;
@@ -32,6 +44,12 @@ class Gordon extends Phaser.Sprite {
   moveLeft() {
     //TODO: figure out collision, and destrcution and delay mechanics.
     //x == 0 is the left side of the screen
+
+    if (this.facing == 'right'){
+      // Invert scale.x to flip left/right
+      this.scale.x *= -1;
+      this.facing = 'left';
+    }
     if (this.x >=0 ) {
       let distance = Math.min(this.velocity * this.game.time.elapsed / 15, Math.abs(this.velocity));
       this.x = this.x - distance;
@@ -47,7 +65,8 @@ class Gordon extends Phaser.Sprite {
     }
     else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-        this.moveRight();
+
+      this.moveRight();
     }
     else
     {
