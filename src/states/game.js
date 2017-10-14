@@ -48,7 +48,12 @@ class Game extends Phaser.State {
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
       if (gordie.x > this.game.width * 0.8) {
-        const success = sandMeter.addSand()
+        const gotSand = sandMeter.addSand()
+        return;
+      }
+
+      if (sandMeter.sand === 0) {
+        // no sand! oh no
         return;
       }
 
@@ -62,6 +67,7 @@ class Game extends Phaser.State {
          castle.addHealth();
          console.log("buffed health to ", castle.health)
          this.emitSandParticles(gordie.x)
+         sandMeter.removeSand()
        }
      }
 
@@ -79,6 +85,7 @@ class Game extends Phaser.State {
        gordie.startBuilding();
        castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
        this.emitSandParticles(gordie.x)
+       sandMeter.removeSand()
      }
     })
   }
