@@ -7,6 +7,8 @@ var escapeKey;
 var ralphLaneY;
 var playerLaneY;
 var timer;
+var ralph
+var castles = []
 
 class Game extends Phaser.State {
 
@@ -29,18 +31,26 @@ class Game extends Phaser.State {
 
     var height = this.game.height
     ralphLaneY = height / 3
-    playerLaneY = (height / 3) * 2
-    new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    new Gordon(this.game, 50, playerLaneY, 0);
+    playerLaneY = (height / 3) * 2 + 64
+    ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
+    var gordie = new Gordon(this.game, 50, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
-      const x = this.game.rnd.between(100, 500)
-      new SandCastle(this.game, x, ralphLaneY)
+      castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
     })
   }
 
-  update() {}
+  update() {
+    for (const sandcastle of castles) {
+      this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
+    }
+  }
+
+  collisionHandler(ralph, sandcastle) {
+    sandcastle.damage(1)
+    ralph.body.velocity.x = 50
+  }
 
   endGame() {
     this.game.state.start('endLevel', false)
