@@ -32,8 +32,12 @@ class Boot extends Phaser.State {
 
   initGlobalVariables(){
     this.game.ba = {
-      gridSpaces: 15,
-      dev_mode: true
+      dev_mode: true,
+      level: {
+        id: 1,
+        gridSpaces: 15,
+        setupTimeSeconds: 20
+      }
     }
   }
 
