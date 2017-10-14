@@ -2,6 +2,7 @@ import Ralph from '../prefabs/ralph'
 import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 import SandCastle from '../prefabs/sandcastleSmall'
+import HeaderText from '../prefabs/headerText'
 
 var escapeKey;
 var ralphLaneY;
@@ -28,7 +29,7 @@ class Game extends Phaser.State {
     })
     timer.start()
     this.timerDisplay = new TimerDisplay(this.game, timer)
-
+    this.displayLevelName()
 
     var height = this.game.height
     ralphLaneY = height / 3 + 64
@@ -112,6 +113,16 @@ class Game extends Phaser.State {
     }, this)
   }
 
+  displayLevelName(){
+    var header = new HeaderText(this.game, this.game.ba.level.name)
+    this.game.time.events.add(2000, function() {
+          this.game.add.tween(header).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
+          this.game.add.tween(header).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
+        }, this);
+    this.game.time.events.add(4000, function() {
+      header.kill()
+    })
+  }
 
 }
 
