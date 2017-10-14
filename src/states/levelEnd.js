@@ -12,7 +12,7 @@ class EndLevel extends Phaser.State {
   }
 
   create() {
-    var winMessage = "Delicious Candy!"
+    var winMessage = "My candy is safe!"
     if (this.game.ba.win === false) {
       winMessage = "Nooo... my candy! q.q"
     }
