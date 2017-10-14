@@ -3,6 +3,8 @@ import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 import SandCastle from '../prefabs/sandcastleSmall'
 import HeaderText from '../prefabs/headerText'
+import SandEmitter from '../prefabs/sandEmitter'
+import SandMeter from '../prefabs/sandMeter'
 
 var escapeKey;
 var ralphLaneY;
@@ -11,6 +13,8 @@ var castleLaneY;
 var timer;
 var ralph, gordie
 var castles = [];
+var sandEmitter;
+var sandMeter;
 
 class Game extends Phaser.State {
 
@@ -36,20 +40,28 @@ class Game extends Phaser.State {
     playerLaneY = (height / 3) + 64 * 2.5
     castleLaneY = height / 3 + 32
 
+    sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
+    sandMeter = new SandMeter(this.game);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
+      if (gordie.x > this.game.width * 0.8) {
+        const success = sandMeter.addSand()
+        return;
+      }
+
       // if there is a castle above gordie
      var found = 'false';
      var ralphFound = 'false';
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
-         gordie.animations.play("build");
+         gordie.startBuilding();
          castle.addHealth();
          console.log("buffed health to ", castle.health)
+         this.emitSandParticles(gordie.x)
        }
      }
 
@@ -64,8 +76,9 @@ class Game extends Phaser.State {
      }
      else {
        // add a new castle
+       gordie.startBuilding();
        castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
-       gordie.animations.play("build");
+       this.emitSandParticles(gordie.x)
      }
     })
   }
@@ -100,22 +113,29 @@ class Game extends Phaser.State {
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
+    sandcastle.updateDisplay();
     console.log("damaged castle health to ", sandcastle.health)
     if (sandcastle.health == 0){
       castles.splice()
     }
     ralph.body.velocity.x = 50
     this.game.camera.shake(0.005, 50);
+
+    this.emitSandParticles(sandcastle.x)
+  }
+
+  emitSandParticles(x) {
+    sandEmitter.x = x
+    sandEmitter.start(true, 200, null, 5)
   }
 
   endGame() {
     this.timerDisplay.kill();
-    //pass ralph so we can do some animationy things.
     this.moveToEndState()
   }
 
   moveToEndState() {
-    var assetsToClear = [ralph, gordie].concat(castles)
+    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie].concat(castles)
     castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
