@@ -20,6 +20,9 @@ class EndLevel extends Phaser.State {
 
     this.saveVarsToLocalStorage();
 
+    // FACE THE OTHER WAY YOU CRAZY RALPH YOU
+    this.ralph.scale.x *= -1;
+
     var timer = this.game.time.create(false)
     timer.add(Phaser.Timer.SECOND * 3, () => {
       this.progressGame()
