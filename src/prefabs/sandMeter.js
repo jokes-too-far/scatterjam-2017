@@ -21,9 +21,17 @@ class SandMeter extends Phaser.Sprite {
     }
     return false
   }
+  removeSand() {
+    if (this.sand > 0) {
+      this.sand--
+      return true
+    }
+    return false
+  }
 
   update() {
-    this.width = padding + (this.sand * 50)
+    const targetWidth = padding + (this.sand * 50)
+    this.width += (targetWidth - this.width) * 0.1
     if (this.sand === 0) {
       this.tint = 0xff0000
     } else if (this.sand === maxSand) {
