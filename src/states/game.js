@@ -1,3 +1,5 @@
+import Gordon from '../prefabs/gordon'
+
 class Game extends Phaser.State {
 
   constructor() {
@@ -9,6 +11,7 @@ class Game extends Phaser.State {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     text.anchor.set(0.5);
+    new Gordon();
 
     this.input.onDown.add(this.endGame, this);
   }
