@@ -1,7 +1,6 @@
 import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 
-const DEV_MODE=true;
 var escapeKey;
 var gordonLaneY;
 var playerLaneY;
@@ -14,14 +13,15 @@ class Game extends Phaser.State {
   }
 
   create() {
-    //Set DEV_MODE environment variable to true if you wanna
     this.setUpDebug()
 
     //Level timer.
     timer = this.game.time.create(false)
     this.game.ba.timer = timer
     //TODO: make this time configurable via some level config?
-    timer.add(Phaser.Timer.SECOND * 5, () => {
+    // This is currently set so that you can just barely lose the game if you let gordon run
+    // uninhibited.
+    timer.add(Phaser.Timer.SECOND * 7, () => {
       this.endGame()
     })
     timer.start()
@@ -40,8 +40,7 @@ class Game extends Phaser.State {
   }
 
   setUpDebug() {
-    this.game.ba.dev_mode = DEV_MODE;
-    if(DEV_MODE !== true){
+    if(this.game.ba.dev_mode !== true){
       return;
     }
     //set up the escape key to stop the timer, and enable click to continue

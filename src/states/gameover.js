@@ -24,7 +24,10 @@ class Menu extends Phaser.State {
   }
 
   resetGlobalVariables(){
-    this.game.ba = {};
+    this.game.ba = {
+      gridSpaces: 15,
+      dev_mode: true
+    }
   }
 
   update() {}
