@@ -17,7 +17,7 @@ class Gordon extends Phaser.Sprite {
       // Set Anchor to the center of your sprite
       this.anchor.setTo(.5);
 
-      this.animations.add('run', [0,1,2,3,4,5,6,7], 20, false);
+      this.animations.add('run', [0,1,2,3,4,5,6], 20, false);
       this.animations.add('build', [8,9,10,11,12,13,14,15,8,9,10,11,12,13,14,15], 30, false);
       this.facing = 'right';
       // Invert scale.x to flip left/right
