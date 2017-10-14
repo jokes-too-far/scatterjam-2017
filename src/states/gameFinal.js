@@ -1,17 +1,13 @@
 import HeaderText from '../prefabs/HeaderText'
 
-class Menu extends Phaser.State {
+class GameOver extends Phaser.State {
 
   constructor() {
     super();
   }
 
   create() {
-    var winMessage = "Delicious Candy!"
-    if (this.game.ba.win === false) {
-      winMessage = "Nooo... my candy! q.q"
-    }
-    new HeaderText(this.game, winMessage)
+    new HeaderText(this.game, "Thanks for playing!")
 
     this.saveVarsToLocalStorage();
 
@@ -23,10 +19,13 @@ class Menu extends Phaser.State {
   }
 
   resetGlobalVariables(){
+    var currentLevel = 1
+    var nextLevel = this.game.cache.getJSON('levels')[0];
     this.game.ba = {
       dev_mode: true,
       currentLevel:1,
-      level: this.game.cache.getJSON('levels')[0]
+      win: true,
+      level: nextLevel
     }
   }
 
@@ -39,4 +38,4 @@ class Menu extends Phaser.State {
 
 }
 
-export default Menu;
+export default GameOver;
