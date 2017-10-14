@@ -1,6 +1,8 @@
 import Gordon from '../prefabs/gordon'
 import TimerDisplay from '../prefabs/timerDisplay'
 
+var escapeKey;
+
 class Game extends Phaser.State {
 
   constructor() {
@@ -13,13 +15,14 @@ class Game extends Phaser.State {
       this.endGame()
     })
     timer.start()
+    escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
+    escapeKey.onDown.add(function(){timer.stop()}, this);
     new TimerDisplay(this.game, timer)
-    new Gordon(this.game);
+    console.log(this.game)
+    new Gordon(this.game, this.game.width, this.game.height / 2, 0);
   }
 
-  update() {
-
-  }
+  update() {}
 
   endGame() {
     this.game.state.start('gameover')
