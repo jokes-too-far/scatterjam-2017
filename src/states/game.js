@@ -27,7 +27,7 @@ class Game extends Phaser.State {
       this.endGame()
     })
     timer.start()
-    new TimerDisplay(this.game, timer)
+    this.timerDisplay = new TimerDisplay(this.game, timer)
 
 
     var height = this.game.height
@@ -92,9 +92,12 @@ class Game extends Phaser.State {
   }
 
   endGame() {
-
+    this.timerDisplay.kill();
+    var assetsToClear = [ralph, gordie].concat(castles)
+    //this will persist across game loops if this isn't cleaned up correctly.
     castles = [];
-    this.game.state.start('endLevel', false, false, ralph)
+    //pass ralph so we can do some animationy things.
+    this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
 
   setUpDebug() {
