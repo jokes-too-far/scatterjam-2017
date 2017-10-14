@@ -6,7 +6,7 @@ class Gordon extends Phaser.Sprite {
   constructor(game, x, y, frame) {
     super(game, x, y, 'gordon', frame);
     console.log("I AM GORDON HEAR ME ROAR")
-    game.add.existing();
+    game.add.existing(this);
   }
 
   //Code ran on each frame of game

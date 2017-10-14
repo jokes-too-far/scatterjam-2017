@@ -14,7 +14,7 @@ class Game extends Phaser.State {
     })
     timer.start()
     new TimerDisplay(this.game, timer)
-    new Gordon();
+    new Gordon(this.game);
   }
 
   update() {
