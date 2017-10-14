@@ -36,7 +36,7 @@ class Game extends Phaser.State {
   update() {}
 
   endGame() {
-    this.game.state.start('gameover')
+    this.game.state.start('gameover', false)
   }
 
   setUpDebug() {
