@@ -38,7 +38,7 @@ class Game extends Phaser.State {
     var height = this.game.height
     ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) + 64 * 2.5
-    castleLaneY = height / 3 + 32
+    castleLaneY = height / 3 +16
 
     sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
@@ -65,7 +65,7 @@ class Game extends Phaser.State {
          found = 'true';
          gordie.startBuilding();
          castle.addHealth();
-         console.log("buffed health to ", castle.health)
+         //console.log("buffed health to ", castle.health)
          this.emitSandParticles(gordie.x)
          sandMeter.removeSand()
        }
@@ -121,7 +121,7 @@ class Game extends Phaser.State {
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
     sandcastle.updateDisplay();
-    console.log("damaged castle health to ", sandcastle.health)
+    //console.log("damaged castle health to ", sandcastle.health)
     if (sandcastle.health == 0){
       castles.splice()
     }
