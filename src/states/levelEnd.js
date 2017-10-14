@@ -6,8 +6,9 @@ class EndLevel extends Phaser.State {
     super();
   }
 
-  init(ralph) {
+  init(ralph, assetsToRemove) {
     this.ralph = ralph
+    this.assetsToKill = assetsToRemove
   }
 
   create() {
@@ -58,6 +59,7 @@ class EndLevel extends Phaser.State {
   }
 
   progressGame () {
+    this.clearAssets()
     var winning = this.game.ba.win
     this.resetGlobalVariables();
     if(winning && this.game.ba.level){
@@ -65,6 +67,12 @@ class EndLevel extends Phaser.State {
       return
     }
     this.game.state.start('gamefinal');
+  }
+
+  clearAssets() {
+    for (var asset of this.assetsToKill) {
+      asset.kill()
+    }
   }
 
 }
