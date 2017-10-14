@@ -83,9 +83,7 @@ class Game extends Phaser.State {
 
   endGame() {
 
-    for (var castle of castles) {
-        castles = [];
-    }
+    castles = [];
     this.game.state.start('endLevel', false, false, ralph)
   }
 
