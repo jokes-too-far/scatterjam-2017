@@ -8,6 +8,10 @@ class SandcastleSmall extends Phaser.Sprite {
     this.events.onKilled.add(() => {
       this.body.destroy()
     })
+
+
+    this.health = 4
+
     game.add.existing(this)
   }
 
