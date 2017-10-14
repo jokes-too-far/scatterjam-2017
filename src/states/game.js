@@ -42,13 +42,16 @@ class Game extends Phaser.State {
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
+         castle.addHealth();
+         console.log("buffed health to ", castle.health)
        }
      }
 
      if(found == 'true'){
-       console.log('NO CAN DO: castle foudn. that\'s right.  FOUDN')
+       //nothing to do for now
      }
      else {
+       // add a new castle
        castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
      }
     })
@@ -70,6 +73,7 @@ class Game extends Phaser.State {
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
+    console.log("damaged castle health to ", sandcastle.health)
     if (sandcastle.health == 0){
       castles.splice()
     }
