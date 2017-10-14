@@ -3,7 +3,7 @@ import Game from './states/game';
 import Menu from './states/menu';
 import Preloader from './states/preloader';
 import Gameover from './states/gameover';
-const SplashScreen = require('./states/splashScreen');
+import SplashScreen from './states/splashScreen';
 
 
 const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'scatterjam-2017-game');
