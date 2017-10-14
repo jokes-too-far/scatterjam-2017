@@ -16,9 +16,11 @@ class Game extends Phaser.State {
     })
     timer.start()
     escapeKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ESC);
-    escapeKey.onDown.add(function(){timer.stop()}, this);
+    escapeKey.onDown.add(function(){
+      this.input.onDown.add(this.endGame, this);
+      timer.stop()
+    }, this);
     new TimerDisplay(this.game, timer)
-    console.log(this.game)
     new Gordon(this.game, this.game.width, this.game.height / 2, 0);
   }
 
