@@ -33,7 +33,7 @@ class Game extends Phaser.State {
 
     var height = this.game.height
     ralphLaneY = height / 3 + 64
-    playerLaneY = (height / 3) * 2 + 64
+    playerLaneY = (height / 3) + 64 * 2.5
     castleLaneY = height / 3 + 32
 
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
@@ -47,6 +47,7 @@ class Game extends Phaser.State {
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
+         gordie.animations.play("build");
          castle.addHealth();
          console.log("buffed health to ", castle.health)
        }
@@ -64,11 +65,26 @@ class Game extends Phaser.State {
      else {
        // add a new castle
        castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
+       gordie.animations.play("build");
      }
     })
   }
 
   update() {
+    if (ralph.x < 0) {
+      if(this.game.ba.win === false){
+        return;
+      }
+      this.game.ba.win = false;
+      this.game.ba.timer.stop();
+      //play animation of bro eating candy
+      const timer = this.game.time.create(false)
+      timer.add(Phaser.Timer.SECOND * 1.5, () => {
+        this.moveToEndState()
+      })
+      timer.start();
+    }
+
     for (const sandcastle of castles) {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
     }
@@ -94,10 +110,14 @@ class Game extends Phaser.State {
 
   endGame() {
     this.timerDisplay.kill();
-    var assetsToClear = [ralph, gordie].concat(castles)
     //this will persist across game loops if this isn't cleaned up correctly.
     castles = [];
     //pass ralph so we can do some animationy things.
+    this.moveToEndState()
+  }
+
+  moveToEndState() {
+    var assetsToClear = [ralph, gordie].concat(castles)
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
 

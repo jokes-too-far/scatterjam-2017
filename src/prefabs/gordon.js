@@ -12,9 +12,13 @@ class Gordon extends Phaser.Sprite {
       super(game, SPRITE_SIZE, y, 'gordon', frame);
       console.log("I AM GORDON, HEAR ME RAWR")
       game.physics.enable(this, Phaser.Physics.ARCADE);
+      this.frame = 0;
       game.add.existing(this);
       // Set Anchor to the center of your sprite
       this.anchor.setTo(.5);
+
+      this.animations.add('run', [0,1,2,3,4,5,6,7], 20, false);
+      this.animations.add('build', [8,9,10,11,12,13,14,15], 20, false);
       this.facing = 'right';
       // Invert scale.x to flip left/right
       this.scale.x *= -1;
@@ -22,8 +26,12 @@ class Gordon extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
+    this.bringToTop()
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
+      this.animations.stop(null, true);
+      this.frame = 0;
+
       if (this.facing == 'right'){
         // Invert scale.x to flip left/right
         this.scale.x *= -1;
@@ -34,6 +42,8 @@ class Gordon extends Phaser.Sprite {
     }
     else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
+      this.animations.stop(null, true);
+      this.frame = 0;
       if (this.facing == 'left'){
         // Invert scale.x to flip left/right
         this.scale.x *= -1;
