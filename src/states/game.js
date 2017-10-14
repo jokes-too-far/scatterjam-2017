@@ -8,8 +8,8 @@ var ralphLaneY;
 var playerLaneY;
 var castleLaneY;
 var timer;
-var ralph, gordie
-var castles = []
+var ralph;
+var castles = [];
 
 class Game extends Phaser.State {
 
@@ -36,12 +36,13 @@ class Game extends Phaser.State {
     castleLaneY = height / 3 + 32
 
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    gordie = new Gordon(this.game, playerLaneY, 0);
+    var gordie = new Gordon(this.game, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
       // if there is a castle above gordie
      var found = 'false';
+     var ralphFound = 'false';
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
@@ -50,7 +51,13 @@ class Game extends Phaser.State {
        }
      }
 
-     if(found == 'true'){
+     // is ralph above gordie?
+     if(gordie.x <= ralph.x + (ralph.width / 2) && gordie.x >= ralph.x - (ralph.width / 2)){
+       ralphFound = 'true';
+       console.log("How dare you build on me?")
+     }
+
+     if(found == 'true' || ralphFound == 'true'){
        //nothing to do for now
      }
      else {
@@ -85,10 +92,9 @@ class Game extends Phaser.State {
   }
 
   endGame() {
+
     castles = [];
-    var assetsToClear = [ralph, gordie]
-    //pass ralph so we can do some animationy things.
-    this.game.state.start('endLevel', false, false, ralph, assetsToClear)
+    this.game.state.start('endLevel', false, false, ralph)
   }
 
   setUpDebug() {
