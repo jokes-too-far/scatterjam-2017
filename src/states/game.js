@@ -37,7 +37,20 @@ class Game extends Phaser.State {
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
-      castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
+      // if there is a castle above gordie
+     var found = 'false';
+     for (var castle of castles) {
+       if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
+         found = 'true';
+       }
+     }
+
+     if(found == 'true'){
+       console.log('NO CAN DO: castle foudn. that\'s right.  FOUDN')
+     }
+     else {
+       castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
+     }
     })
   }
 
@@ -45,14 +58,29 @@ class Game extends Phaser.State {
     for (const sandcastle of castles) {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
     }
+
+    var newCastles = []
+    for (var castle of castles) {
+      if(castle.health > 0){
+        newCastles.push(castle);
+      }
+    }
+    castles = newCastles;
   }
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
+    if (sandcastle.health == 0){
+      castles.splice()
+    }
     ralph.body.velocity.x = 50
   }
 
   endGame() {
+
+    for (var castle of castles) {
+        castles = [];
+    }
     this.game.state.start('endLevel', false)
   }
 
