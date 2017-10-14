@@ -33,8 +33,9 @@ class Gordon extends Phaser.Sprite {
     }
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-      this.animations.stop(null, true);
-      this.frame = 0;
+    if (this.animations.currentAnim.name !="run" || this.animations.currentAnim.isPlaying==false){
+      this.animations.play("run");
+    }
 
       if (this.facing == 'right'){
         // Invert scale.x to flip left/right
@@ -46,8 +47,10 @@ class Gordon extends Phaser.Sprite {
     }
     else if (this.game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-      this.animations.stop(null, true);
-      this.frame = 0;
+
+      if (this.animations.currentAnim.name !="run" || this.animations.currentAnim.isPlaying==false){
+        this.animations.play("run");
+      }
       if (this.facing == 'left'){
         // Invert scale.x to flip left/right
         this.scale.x *= -1;
