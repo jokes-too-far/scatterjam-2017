@@ -8,7 +8,7 @@ var ralphLaneY;
 var playerLaneY;
 var castleLaneY;
 var timer;
-var ralph;
+var ralph, gordie
 var castles = [];
 
 class Game extends Phaser.State {
@@ -36,7 +36,7 @@ class Game extends Phaser.State {
     castleLaneY = height / 3 + 32
 
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    var gordie = new Gordon(this.game, playerLaneY, 0);
+    gordie = new Gordon(this.game, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {

@@ -36,7 +36,8 @@ class Boot extends Phaser.State {
     this.game.ba = {
       dev_mode: true,
       currentLevel: 1,
-      level: levels[0]
+      level: levels[0],
+      win: true
     }
   }
 
