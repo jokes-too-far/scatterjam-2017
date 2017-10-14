@@ -12,7 +12,7 @@ class Gordon extends Phaser.Sprite {
     this.lastvelocity = 0
 
     //calculate the velocity based on grid spaces so we don't have screen size issues.
-    var grids = this.game.ba.gridSpaces
+    var grids = this.game.ba.level.gridSpaces
     var widthPerGrid = this.game.width / grids
     //Move 2 grid spaces per second to start? I dunno, collisions are going to screw with it.
     // but this seems like a good rate?
