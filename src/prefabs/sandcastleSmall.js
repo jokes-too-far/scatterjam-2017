@@ -1,8 +1,9 @@
-const maxHealth = 5;
+const maxHealth = 4;
 class SandcastleSmall extends Phaser.Sprite {
 
   constructor(game, x, y) {
     super(game, x, y, 'sandcastleSmall')
+    this.frame = 0;
     game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true
     // Set Anchor to the center of your sprite
@@ -19,7 +20,13 @@ class SandcastleSmall extends Phaser.Sprite {
   addHealth(){
     if(this.health< maxHealth){
       this.health++;
+      this.updateDisplay();
     }
+  }
+
+  updateDisplay(){
+    console.log("frame was ", this.frame, ", becoming ", this.health+1)
+    this.frame = this.health-1;
   }
 
   update() {
