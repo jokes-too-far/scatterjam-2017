@@ -105,6 +105,7 @@ class Game extends Phaser.State {
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
+    sandcastle.updateDisplay();
     console.log("damaged castle health to ", sandcastle.health)
     if (sandcastle.health == 0){
       castles.splice()
