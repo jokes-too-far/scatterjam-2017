@@ -78,6 +78,7 @@ class Game extends Phaser.State {
       castles.splice()
     }
     ralph.body.velocity.x = 50
+    this.game.camera.shake(0.005, 50);
   }
 
   endGame() {
