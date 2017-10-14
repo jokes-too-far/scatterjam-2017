@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "Tiny Tyrade",
+    "gridSpaces": 15,
+    "setupTimeSeconds": 20,
+    "levelTimeSeconds": 10,
+    "enemy": {
+      "spacesPerSecond": 2
+    },
+    "mutators": []
+  },
+  {
+    "id": 2,
+    "name": "CRAB PEOPLE",
+    "gridSpaces": 15,
+    "setupTimeSeconds": 20,
+    "levelTimeSeconds": 10,
+    "enemy": {
+      "spacesPerSecond": 2
+    },
+    "mutators":["crabs"]
+  }
+]

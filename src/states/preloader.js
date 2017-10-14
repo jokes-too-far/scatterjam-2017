@@ -20,8 +20,8 @@ class Preloader extends Phaser.State {
   update() {}
 
   loadResources() {
-    this.game.load.spritesheet('ralph', '../../assets/gordong.png', 128, 128, 1)
-    this.game.load.spritesheet('gordon', '../../assets/sprites/babygodzilla.png', 128, 128, 1)
+    this.game.load.spritesheet('ralph', '../../assets/rolph.png', 128, 128, 1)
+    this.game.load.spritesheet('gordon', '../../assets/gordon.png', 128, 128, 1)
     this.game.load.spritesheet('sandcastleSmall', '../../assets/sandcastle-small.png', 64, 64, 1)
 
     this.game.load.image('tileable-ground-sand', '../../assets/tileable-ground-sand.png', 128, 128)

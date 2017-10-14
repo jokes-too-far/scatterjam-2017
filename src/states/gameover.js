@@ -24,8 +24,9 @@ class Menu extends Phaser.State {
 
   resetGlobalVariables(){
     this.game.ba = {
-      gridSpaces: 15,
-      dev_mode: true
+      dev_mode: true,
+      currentLevel:1,
+      level: this.game.cache.getJSON('levels')[0]
     }
   }
 

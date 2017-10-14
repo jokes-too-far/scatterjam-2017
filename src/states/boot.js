@@ -6,6 +6,7 @@ class Boot extends Phaser.State {
 
   preload() {
     this.load.image('preloader', 'assets/preloader.gif');
+    this.load.json('levels', 'assets/levels.json')
   }
 
   create() {
@@ -31,13 +32,11 @@ class Boot extends Phaser.State {
   }
 
   initGlobalVariables(){
+    var levels = this.game.cache.getJSON('levels')
     this.game.ba = {
       dev_mode: true,
-      level: {
-        id: 1,
-        gridSpaces: 15,
-        setupTimeSeconds: 20
-      }
+      currentLevel: 1,
+      level: levels[0]
     }
   }
 
