@@ -32,7 +32,7 @@ class Game extends Phaser.State {
 
     var height = this.game.height
     ralphLaneY = height / 3
-    playerLaneY = (height / 3) * 2
+    playerLaneY = (height / 3) * 2 + 64
     new Ralph(this.game, this.game.width, ralphLaneY, 0);
     new Gordon(this.game, 50, playerLaneY, 0);
 
