@@ -1,16 +1,21 @@
+import TimerDisplay from '../prefabs/timerDisplay'
+
 class Game extends Phaser.State {
 
   constructor() {
-    super();
+    super()
   }
 
   create() {
-    var text = this.add.text(this.game.width * 0.5, this.game.height * 0.5, 'Game', {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
-    });
-    text.anchor.set(0.5);
+    const timer = this.game.time.create(false)
+    timer.add(Phaser.Timer.SECOND * 5, () => {
+      console.log('done');
+    })
+    timer.start()
+    new TimerDisplay(this.game, timer)
+    console.log(timer);
 
-    this.input.onDown.add(this.endGame, this);
+    this.input.onDown.add(this.endGame, this)
   }
 
   update() {
@@ -18,7 +23,7 @@ class Game extends Phaser.State {
   }
 
   endGame() {
-    this.game.state.start('gameover');
+    this.game.state.start('gameover')
   }
 
 }
