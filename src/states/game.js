@@ -50,7 +50,7 @@ class Game extends Phaser.State {
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
-         gordie.animations.play("build");
+         gordie.startBuilding();
          castle.addHealth();
          console.log("buffed health to ", castle.health)
          this.emitSandParticles(gordie.x)
@@ -68,9 +68,9 @@ class Game extends Phaser.State {
      }
      else {
        // add a new castle
+       gordie.startBuilding();
        castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
        this.emitSandParticles(gordie.x)
-       gordie.animations.play("build");
      }
     })
   }
