@@ -6,9 +6,10 @@ import SandCastle from '../prefabs/sandcastleSmall'
 var escapeKey;
 var ralphLaneY;
 var playerLaneY;
+var castleLaneY;
 var timer;
-var ralph
-var castles = []
+var ralph;
+var castles = [];
 
 class Game extends Phaser.State {
 
@@ -30,14 +31,39 @@ class Game extends Phaser.State {
 
 
     var height = this.game.height
-    ralphLaneY = height / 3
+    ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) * 2 + 64
+    castleLaneY = height / 3 + 32
+
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
-    var gordie = new Gordon(this.game, 50, playerLaneY, 0);
+    var gordie = new Gordon(this.game, playerLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
-      castles.push(new SandCastle(this.game, gordie.x, ralphLaneY))
+      // if there is a castle above gordie
+     var found = 'false';
+     var ralphFound = 'false';
+     for (var castle of castles) {
+       if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
+         found = 'true';
+         castle.addHealth();
+         console.log("buffed health to ", castle.health)
+       }
+     }
+
+     // is ralph above gordie?
+     if(gordie.x <= ralph.x + (ralph.width / 2) && gordie.x >= ralph.x - (ralph.width / 2)){
+       ralphFound = 'true';
+       console.log("How dare you build on me?")
+     }
+
+     if(found == 'true' || ralphFound == 'true'){
+       //nothing to do for now
+     }
+     else {
+       // add a new castle
+       castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
+     }
     })
   }
 
@@ -45,15 +71,30 @@ class Game extends Phaser.State {
     for (const sandcastle of castles) {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
     }
+
+    var newCastles = []
+    for (var castle of castles) {
+      if(castle.health > 0){
+        newCastles.push(castle);
+      }
+    }
+    castles = newCastles;
   }
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
+    console.log("damaged castle health to ", sandcastle.health)
+    if (sandcastle.health == 0){
+      castles.splice()
+    }
     ralph.body.velocity.x = 50
+    this.game.camera.shake(0.005, 50);
   }
 
   endGame() {
-    this.game.state.start('endLevel', false)
+
+    castles = [];
+    this.game.state.start('endLevel', false, false, ralph)
   }
 
   setUpDebug() {
@@ -67,6 +108,7 @@ class Game extends Phaser.State {
       timer.stop()
     }, this)
   }
+
 
 }
 

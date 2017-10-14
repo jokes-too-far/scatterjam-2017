@@ -6,6 +6,11 @@ class EndLevel extends Phaser.State {
     super();
   }
 
+  init(ralph, assetsToRemove) {
+    this.ralph = ralph
+    this.assetsToKill = assetsToRemove
+  }
+
   create() {
     var winMessage = "Delicious Candy!"
     if (this.game.ba.win === false) {
@@ -14,6 +19,9 @@ class EndLevel extends Phaser.State {
     new HeaderText(this.game, winMessage)
 
     this.saveVarsToLocalStorage();
+
+    // FACE THE OTHER WAY YOU CRAZY RALPH YOU
+    this.ralph.scale.x *= -1;
 
     var timer = this.game.time.create(false)
     timer.add(Phaser.Timer.SECOND * 3, () => {
@@ -49,9 +57,12 @@ class EndLevel extends Phaser.State {
     }
   }
 
-  update() {}
+  update() {
+    this.ralph.body.velocity.x += 50
+  }
 
   progressGame () {
+    this.clearAssets()
     var winning = this.game.ba.win
     this.resetGlobalVariables();
     if(winning && this.game.ba.level){
@@ -59,6 +70,12 @@ class EndLevel extends Phaser.State {
       return
     }
     this.game.state.start('gamefinal');
+  }
+
+  clearAssets() {
+    for (var asset of this.assetsToKill) {
+      asset.kill()
+    }
   }
 
 }
