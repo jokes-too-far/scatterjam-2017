@@ -6,6 +6,7 @@ import SandCastle from '../prefabs/sandcastleSmall'
 var escapeKey;
 var ralphLaneY;
 var playerLaneY;
+var castleLaneY;
 var timer;
 var ralph, gordie
 var castles = []
@@ -30,8 +31,10 @@ class Game extends Phaser.State {
 
 
     var height = this.game.height
-    ralphLaneY = height / 3
+    ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) * 2 + 64
+    castleLaneY = height / 3 + 32
+
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
 
@@ -52,7 +55,7 @@ class Game extends Phaser.State {
      }
      else {
        // add a new castle
-       castles.push(new SandCastle(this.game, gordie.x, ralphLaneY + 32))
+       castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
      }
     })
   }

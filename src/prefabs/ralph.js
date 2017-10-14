@@ -8,8 +8,10 @@ class Ralph extends Phaser.Sprite {
     x = x - (SPRITE_SIZE / 2)
     y = y - (SPRITE_SIZE / 2)
     super(game, x, y, 'ralph', frame);
+    this.anchor.setTo(.5);
     console.log("I AM RALPH, I AM MEAN")
     game.physics.enable(this, Phaser.Physics.ARCADE);
+    this.body.setSize(50, 128, 40, 0);
     this.body.velocity.x = 0
     game.add.existing(this);
   }
@@ -24,7 +26,7 @@ class Ralph extends Phaser.Sprite {
     }
 
     // Uncomment this to see the physics collision box
-    // this.game.debug.body(this);
+    //this.game.debug.body(this);
   }
 
   endGame() {
