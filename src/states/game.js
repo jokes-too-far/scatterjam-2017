@@ -36,6 +36,8 @@ class Game extends Phaser.State {
     this.timerDisplay = new TimerDisplay(this.game, timer)
     this.displayLevelName()
 
+    this.destroySound = this.game.add.audio('destroy')
+
     var height = this.game.height
     ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) + 64 * 2.5
@@ -142,6 +144,10 @@ class Game extends Phaser.State {
     }
     ralph.body.velocity.x = 50
     this.game.camera.shake(0.005, 50);
+
+    if(!this.destroySound.isPlaying) {
+      this.destroySound.play()
+    }
 
     this.emitSandParticles(sandcastle.x)
   }
