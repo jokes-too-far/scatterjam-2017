@@ -18,7 +18,16 @@ class EndLevel extends Phaser.State {
     let winMessage
     let splashImage
 
-    // TODO make sure I didn't nuke some sounds in a merge?
+    var timer = this.game.time.create(false)
+    timer.add(Phaser.Timer.SECOND * 3, () => {
+      this.progressGame()
+    })
+    timer.start()
+    this.input.onDown.add(() => {
+      timer.stop()
+      this.progressGame()
+    }, this);
+
     // TODO wait on this so you can see him run away
 
     this.successSound = this.game.add.audio('success')
@@ -43,16 +52,6 @@ class EndLevel extends Phaser.State {
     this.ralph.scale.x *= -1;
     this.ralph.animations.currentAnim.frameRate = 30;
     this.ralph.animations.currentAnim.restart();
-
-    var timer = this.game.time.create(false)
-    timer.add(Phaser.Timer.SECOND * 3, () => {
-      this.progressGame()
-    })
-    timer.start()
-    this.input.onDown.add(() => {
-      timer.stop()
-      this.progressGame()
-    }, this);
   }
 
   saveVarsToLocalStorage(){}
