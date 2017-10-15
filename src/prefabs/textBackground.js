@@ -11,7 +11,6 @@ class TextBackground extends Phaser.TileSprite {
 
   update() {
     if (this.destroying) {
-      console.log(this.alpha);
       if (this.alpha > 0.1) {
         this.alpha -= 0.05
       } else {
@@ -23,7 +22,6 @@ class TextBackground extends Phaser.TileSprite {
   }
 
   remove() {
-    console.log('removing');
     this.destroying = true
   }
 
