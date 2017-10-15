@@ -10,8 +10,16 @@ class WetSand extends Phaser.Sprite {
     this.anchor.setTo(.5);
     game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true
+
+    this.health = 3;
+
+    this.events.onKilled.add(() => {
+      this.body.destroy()
+    })
+
     game.add.existing(this);
   }
+
 
   //Code ran on each frame of game
   update() {

@@ -52,14 +52,7 @@ class Game extends Phaser.State {
     sandMeter = new SandMeter(this.game);
     candy = new Candy(this.game, 64, castleLaneY - 20, 0);
 
-    //randomize wet sand location
-    //what tile is wet?
-    var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
-    var maxTiles = this.game.ba.level.gridSpaces
-    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
-    console.log(this.game.width, ' ', maxTiles, ' ',wetTileLocation, ' ',sandPositionX);
-    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 64,0))
-
+    this.makeWetSand();
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
@@ -68,12 +61,24 @@ class Game extends Phaser.State {
 
         var sandspotRight = sandspot.x + (sandspot.width / 2)
         var sandspotLeft = sandspot.x - (sandspot.width / 2)
-        console.log('gordie X: ', gordie.x, ' sandspotLeft: ', sandspotLeft, ' sandspotRight ', sandspotRight);
-        console.log('sandMeter.sand: ', sandMeter.sand, ' sandMeter.maxSand: ', sandMeter.maxSand);
+        //console.log('gordie X: ', gordie.x, ' sandspotLeft: ', sandspotLeft, ' sandspotRight ', sandspotRight);
+        //console.log('sandMeter.sand: ', sandMeter.sand, ' sandMeter.maxSand: ', sandMeter.maxSand);
         if(gordie.x <= sandspotRight && gordie.x >= sandspotLeft && sandMeter.sand < sandMeter.maxSand){
 
             const gotSand = sandMeter.addSand()
+            if (sandspot.health == 1){
+              this.makeWetSand();
+            }
+            sandspot.damage(1);
             gordie.startBuilding();
+
+            var newWetSands = []
+            for (var sand of wetSands) {
+              if(sand.health > 0){
+                newWetSands.push(sand);
+              }
+            }
+            wetSands = newWetSands;
             return;
 
         }
@@ -156,12 +161,13 @@ class Game extends Phaser.State {
       }
     }
     castles = newCastles;
+
+
   }
 
   collisionHandler(ralph, sandcastle) {
     sandcastle.damage(1)
     sandcastle.updateDisplay();
-    //console.log("damaged castle health to ", sandcastle.health)
     if (sandcastle.health == 0){
       castles.splice()
     }
@@ -200,6 +206,7 @@ class Game extends Phaser.State {
   moveToEndState() {
     var assetsToClear = [sandMeter, sandEmitter, ralph, gordie, candy].concat(castles).concat(wetSands)
     castles = [];
+    wetSands = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
 
@@ -233,6 +240,15 @@ class Game extends Phaser.State {
     })
   }
 
+  makeWetSand() {
+    //randomize wet sand location
+    //what tile is wet?
+    var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
+    var maxTiles = this.game.ba.level.gridSpaces
+    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
+    console.log(this.game.width, ' ', maxTiles, ' ',wetTileLocation, ' ',sandPositionX);
+    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 64,0))
+  }
 }
 
 export default Game;
