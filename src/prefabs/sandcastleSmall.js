@@ -3,6 +3,7 @@ class SandcastleSmall extends Phaser.Sprite {
 
   constructor(game, x, y) {
     super(game, x, y, 'sandcastleSmall')
+    this.tint = 0xb4a050;
     this.frame = 0;
     this.scale.setTo(1.5,1.5);
     game.physics.enable(this, Phaser.Physics.ARCADE)
