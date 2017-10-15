@@ -15,8 +15,12 @@ class SandMeter extends Phaser.Sprite {
     this.sand = 2
     this.width = padding + (this.sand * widthPerSand)
     new Background(game, this)
+
+    // Gross hack to get the battery fill lines above the bar itself
     this.bringToTop()
-    this.moveDown()
+    for (var i = 0; i < this.maxSand; i++) {
+      this.moveDown()
+    }
   }
 
   addSand() {
@@ -72,7 +76,7 @@ class Background extends Phaser.Sprite {
     this.height = parent.height + padding * 2
     console.log(this.x, this.y, this.height, this.width);
     new BatteryStickyOutyBit(game, this)
-    for (var i = 1; i < parent.maxSand; i++) {
+    for (var i = 0; i < parent.maxSand; i++) {
       new BatteryFillLine(game, this, padding * 2 + i * widthPerSand)
     }
   }
@@ -98,7 +102,6 @@ class BatteryFillLine extends Phaser.Sprite {
     this.width = 4
     this.bringToTop()
     this.tint = parent.tint
-    this.tint = 0xff0000
   }
 }
 
