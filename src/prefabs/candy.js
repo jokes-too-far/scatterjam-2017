@@ -19,7 +19,7 @@ class Candy extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
-
+    this.angle = Math.sin(this.game.time.time * 1/500) * 5
   }
 
 }
