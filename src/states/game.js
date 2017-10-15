@@ -45,7 +45,7 @@ class Game extends Phaser.State {
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
     sandMeter = new SandMeter(this.game);
-    candy = new Candy(this.game, 64, castleLaneY, 0);
+    candy = new Candy(this.game, 64, castleLaneY - 20, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
@@ -62,6 +62,8 @@ class Game extends Phaser.State {
       // if there is a castle above gordie
      var found = 'false';
      var ralphFound = 'false';
+     var candyFound = 'false';
+
      for (var castle of castles) {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
@@ -81,7 +83,13 @@ class Game extends Phaser.State {
        console.log("How dare you build on me?")
      }
 
-     if(found == 'true' || ralphFound == 'true'){
+     // is the candy above gordie?
+     if(gordie.x <= candy.x + (candy.width / 2) && gordie.x >= candy.x - (candy.width / 2)){
+       candyFound = 'true';
+       console.log("Sand on your candy? Yuck!")
+     }
+
+     if(found == 'true' || ralphFound == 'true' || candyFound == 'true'){
        //nothing to do for now
      }
      else {
