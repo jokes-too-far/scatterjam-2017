@@ -17,9 +17,9 @@
     "gridSpaces": 15,
     "setupTimeSeconds": 20,
     "levelTimeSeconds": 30,
-    "sandSpots":2,
-    "ralphVelocity":4,
-    "ralphMaxSpeed":-100,
+    "sandSpots":3,
+    "ralphVelocity":2,
+    "ralphMaxSpeed":-90,
     "lastLevel":false,
     "mutators":["crabs"]
   },
@@ -28,10 +28,10 @@
     "name": "RALPH'S REVENGE",
     "gridSpaces": 15,
     "setupTimeSeconds": 20,
-    "levelTimeSeconds": 60,
-    "sandSpots":1,
-    "ralphVelocity":10,
-    "ralphMaxSpeed":-200,
+    "levelTimeSeconds": 30,
+    "sandSpots":3,
+    "ralphVelocity":4,
+    "ralphMaxSpeed":-110,
     "lastLevel":false,
     "mutators":["losers"]
   }

@@ -1,17 +1,27 @@
 import style from '../fontStyle'
 
 const padding = 10
+const widthPerSand = 50
 
 class SandMeter extends Phaser.Sprite {
 
   constructor(game) {
-    super(game, padding, game.height - padding, 'meterFill')
+    super(game, padding * 2, game.height - padding, 'meterFill')
     new Label(game, this)
     this.anchor.setTo(0, 1)
     game.add.existing(this)
 
     this.maxSand = 3
     this.sand = 2
+    this.width = padding + (this.sand * widthPerSand)
+    new Background(game, this)
+    new RedBar(game)
+
+    // Gross hack to get the battery fill lines above the bar itself
+    this.bringToTop()
+    for (var i = 0; i < this.maxSand; i++) {
+      this.moveDown()
+    }
   }
 
   addSand() {
@@ -30,10 +40,10 @@ class SandMeter extends Phaser.Sprite {
   }
 
   update() {
-    const targetWidth = padding + (this.sand * 50)
+    const targetWidth = (this.sand * widthPerSand)
     this.width += (targetWidth - this.width) * 0.1
-    if (this.sand === 0) {
-      this.tint = 0xff0000
+    if (this.sand === 1) {
+      this.tint = 0xffff00
     } else if (this.sand === this.maxSand) {
       this.tint = 0x00ff00
     } else {
@@ -42,7 +52,6 @@ class SandMeter extends Phaser.Sprite {
   }
 
 }
-
 
 class Label extends Phaser.Text {
 
@@ -55,6 +64,55 @@ class Label extends Phaser.Text {
 
   update() {}
 
+}
+
+class RedBar extends Phaser.Sprite {
+  constructor(game) {
+    super(game, padding, game.height - padding, 'meterFill')
+    this.anchor.setTo(0, 1)
+    this.width = padding
+    this.tint = 0xff0000
+    game.add.existing(this)
+  }
+}
+
+class Background extends Phaser.Sprite {
+  constructor(game, parent) {
+    super(game, 0, game.height, 'meterFill')
+    this.width = parent.maxSand * widthPerSand + padding * 3
+    game.add.existing(this)
+    this.tint = 0x000000
+    this.anchor = parent.anchor
+    this.height = parent.height + padding * 2
+    console.log(this.x, this.y, this.height, this.width);
+    new BatteryStickyOutyBit(game, this)
+    for (var i = 0; i < parent.maxSand; i++) {
+      new BatteryFillLine(game, this, padding * 2 + i * widthPerSand)
+    }
+  }
+}
+
+class BatteryStickyOutyBit extends Phaser.Sprite {
+  constructor(game, parent) {
+    super(game, parent.x + parent.width, parent.y - parent.height / 4, 'meterFill')
+    game.add.existing(this)
+    this.anchor = parent.anchor
+    this.height = parent.height / 2
+    this.width = 12
+    this.tint = parent.tint
+  }
+}
+
+class BatteryFillLine extends Phaser.Sprite {
+  constructor(game, parent, x) {
+    super(game, x, parent.y, 'meterFill')
+    game.add.existing(this)
+    this.anchor = parent.anchor
+    this.height = parent.height
+    this.width = 4
+    this.bringToTop()
+    this.tint = parent.tint
+  }
 }
 
 export default SandMeter;

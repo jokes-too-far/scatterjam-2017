@@ -8,10 +8,12 @@ class WetSand extends Phaser.Sprite {
 
     this.tint = 0xb4a050;
     this.anchor.setTo(.5);
+    this.angle = game.rnd.integerInRange(-180, 180)
     game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true
 
     this.health = 3;
+    this.alpha = 0
 
     this.events.onKilled.add(() => {
       this.body.destroy()
@@ -23,7 +25,9 @@ class WetSand extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
-
+    if (this.alpha < 0.9) {
+      this.alpha += 0.1
+    }
   }
 
 }
