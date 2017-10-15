@@ -71,9 +71,9 @@ class EndLevel extends Phaser.State {
 
   clearAssets() {
     for (var asset of this.assetsToKill) {
-      asset.kill()
+      asset.destroy()
     }
-    this.message.kill()
+    this.message.destroy()
   }
 
 }

@@ -222,14 +222,14 @@ class Game extends Phaser.State {
   }
 
   displayLevelName(){
-    var header = new HeaderText(this.game, this.game.ba.level.name)
+    const header = new HeaderText(this.game, this.game.ba.level.name)
     this.game.time.events.add(2000, function() {
           header.bg.remove()
           this.game.add.tween(header).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
           this.game.add.tween(header).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
         }, this);
     this.game.time.events.add(4000, function() {
-      header.kill()
+      header.destroy()
     })
   }
 
