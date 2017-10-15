@@ -57,7 +57,7 @@ class Sand extends Phaser.TileSprite {
 class WetSand extends Phaser.TileSprite {
 
   constructor(game,tileLocation, maxTiles) {
-    super(game, game.width * 100 / maxTiles * tileLocation, game.height * percentOfSky + tileSize, 100 / maxTiles, game.height, 'tileable-ground-sand')
+    super(game, game.width * 100 / maxTiles * tileLocation, Math.ceil(game.height * percentOfSky) + tileSize, 100 / maxTiles, game.height, 'tileable-ground-sand')
     this.tint = wetTint;
     game.add.existing(this)
   }
