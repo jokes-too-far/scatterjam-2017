@@ -14,6 +14,7 @@ class Background extends Phaser.Sprite {
     new Sand(game)
     new BackgroundHorizon(game)
     new Birb(game, )
+    new OceanTile(game)
   }
 
   update() {}
@@ -54,6 +55,17 @@ class Sand extends Phaser.TileSprite {
 
 }
 
+class OceanTile extends Phaser.TileSprite {
+
+  constructor(game) {
+    var playerLane = (game.height / 3) + 64 * 2.5;
+    super(game, 0, Math.ceil(playerLane), game.width, game.height, 'ocean-tile')
+    game.add.existing(this)
+  }
+
+  update() {}
+
+}
 
 class WetSand extends Phaser.TileSprite {
 

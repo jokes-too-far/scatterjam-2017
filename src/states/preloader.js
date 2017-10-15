@@ -26,6 +26,7 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('candy','../../assets/candy.png', 128, 128, 1)
     this.game.load.spritesheet('lose-screen','../../assets/lose-screen.png', 512, 512, 4)
 
+    this.game.load.image('ocean-tile', '../../assets/ocean-tile.png')
     this.game.load.image('wet-sand', '../../assets/wet-sand.png')
     this.game.load.image('tileable-ground-sand', '../../assets/tileable-ground-sand.png')
     this.game.load.image('tileable-horizon-sand', '../../assets/tileable-horizon-sand.png')
