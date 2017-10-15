@@ -1,7 +1,6 @@
 import style from '../fontStyle'
 
 const padding = 10
-const maxSand = 3
 
 class SandMeter extends Phaser.Sprite {
 
@@ -11,11 +10,12 @@ class SandMeter extends Phaser.Sprite {
     this.anchor.setTo(0, 1)
     game.add.existing(this)
 
+    this.maxSand = 3
     this.sand = 2
   }
 
   addSand() {
-    if (this.sand < maxSand) {
+    if (this.sand < this.maxSand) {
       this.sand++
       return true
     }
@@ -34,7 +34,7 @@ class SandMeter extends Phaser.Sprite {
     this.width += (targetWidth - this.width) * 0.1
     if (this.sand === 0) {
       this.tint = 0xff0000
-    } else if (this.sand === maxSand) {
+    } else if (this.sand === this.maxSand) {
       this.tint = 0x00ff00
     } else {
       this.tint = 0xffffff
