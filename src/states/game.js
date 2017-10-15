@@ -51,6 +51,7 @@ class Game extends Phaser.State {
     buildButton.onDown.add(() => {
       if (gordie.x > this.game.width * 0.6) {
         const gotSand = sandMeter.addSand()
+        gordie.startBuilding();
         return;
       }
 
