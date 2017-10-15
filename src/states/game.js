@@ -52,7 +52,9 @@ class Game extends Phaser.State {
     sandMeter = new SandMeter(this.game);
     candy = new Candy(this.game, 64, castleLaneY - 20, 0);
 
-    this.makeWetSand();
+    for (var i=0; i<this.game.ba.level.sandSpots; i++){
+      this.makeWetSand();
+    }
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
