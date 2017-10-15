@@ -40,6 +40,7 @@ class Preloader extends Phaser.State {
     this.game.load.audio('destroy', ['assets/sounds/destroy.ogg'])
     this.game.load.audio('loser', ['assets/sounds/loser.ogg'])
     this.game.load.audio('level', ['assets/sounds/level.ogg'])
+    this.game.load.audio('success', ['assets/sounds/success.ogg'])
 
   }
 

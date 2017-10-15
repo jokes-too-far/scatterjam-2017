@@ -13,11 +13,12 @@ class EndLevel extends Phaser.State {
 
   create() {
     var winMessage = "My candy is safe!"
+    this.successSound = this.game.add.audio('success')
     if (this.game.ba.win === false) {
       winMessage = "Nooo... my candy! q.q"
-    }
-    else {
+    } else {
       this.game.ba.win = true; //because nobody's setting this
+      this.successSound.play()
     }
     this.message = new HeaderText(this.game, winMessage)
 
@@ -66,8 +67,9 @@ class EndLevel extends Phaser.State {
   progressGame () {
     this.clearAssets()
     var winning = this.game.ba.win
+    var lastLevel = this.game.ba.level.lastLevel
     this.resetGlobalVariables();
-    if(winning && this.game.ba.level.lastLevel===false){
+    if(winning && lastLevel===false){
       this.game.state.start('game', false)
       return
     }
