@@ -12,6 +12,10 @@ class GameOver extends Phaser.State {
     this.saveVarsToLocalStorage();
 
     this.input.onDown.add(this.restartGame, this);
+
+    var self = this;
+    this.game.input.keyboard.onPressCallback = function(e){
+      self.restartGame();}
   }
 
   saveVarsToLocalStorage(){
@@ -32,6 +36,7 @@ class GameOver extends Phaser.State {
   update() {}
 
   restartGame () {
+    this.game.input.keyboard.onPressCallback = null;
     this.resetGlobalVariables();
     this.game.state.start('menu');
   }

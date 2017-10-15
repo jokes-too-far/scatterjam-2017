@@ -13,6 +13,7 @@ class Background extends Phaser.Sprite {
 
     new Sand(game)
     new BackgroundHorizon(game)
+    new Birb(game, )
   }
 
   update() {}
@@ -64,6 +65,17 @@ class WetSand extends Phaser.TileSprite {
 
   update() {}
 
+}
+
+class Birb extends Phaser.Sprite {
+  //initialization code in the constructor
+  constructor(game) {
+    var x = 200
+    var y = 20
+    super(game, x, y, 'birbs', 0);
+    game.add.existing(this)
+  }
+  update() {}
 }
 
 export default Background

@@ -5,6 +5,10 @@ class SplashScreen extends Phaser.State {
     create() {
         this.input.onDown.add(this.skipIntro, this);
 
+        var self = this;
+        this.game.input.keyboard.onPressCallback = function(e){
+          self.skipIntro();}
+
         const splash = new CenteredSprite(this.game, 'logo-stl');
         splash.alpha = 0;
         const tween = this.game.add.tween(splash).to(
@@ -49,6 +53,7 @@ class SplashScreen extends Phaser.State {
     }
 
     skipIntro() {
+      this.game.input.keyboard.onPressCallback = null;
         this.game.state.start('menu');
     }
 

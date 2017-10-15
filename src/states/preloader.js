@@ -35,6 +35,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('titleGraphic', '../../assets/title.png')
     this.game.load.image('textBackground', '../../assets/tileable-title-background.png')
     this.game.load.image('victory-screen','../../assets/victory-screen.png')
+    this.game.load.image('birbs', '../../assets/birbs.png')
     this.game.load.image('sun','../../assets/sun.png')
 
     this.game.load.audio('title', ['assets/sounds/title.wav']);
