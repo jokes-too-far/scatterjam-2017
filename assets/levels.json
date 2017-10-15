@@ -28,11 +28,11 @@
     "name": "RALPH'S REVENGE",
     "gridSpaces": 15,
     "setupTimeSeconds": 20,
-    "levelTimeSeconds": 30,
+    "levelTimeSeconds": 25,
     "sandSpots":3,
     "ralphVelocity":4,
     "ralphMaxSpeed":-110,
-    "lastLevel":false,
+    "lastLevel":true,
     "mutators":["losers"]
   }
 ]

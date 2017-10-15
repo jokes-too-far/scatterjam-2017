@@ -67,8 +67,9 @@ class EndLevel extends Phaser.State {
   progressGame () {
     this.clearAssets()
     var winning = this.game.ba.win
+    var lastLevel = this.game.ba.level.lastLevel
     this.resetGlobalVariables();
-    if(winning && this.game.ba.level.lastLevel===false){
+    if(winning && lastLevel===false){
       this.game.state.start('game', false)
       return
     }
