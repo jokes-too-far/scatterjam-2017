@@ -15,36 +15,37 @@ class EndLevel extends Phaser.State {
   }
 
   create() {
-    let winMessage
-    let splashImage
-
     var timer = this.game.time.create(false)
-    timer.add(Phaser.Timer.SECOND * 3, () => {
+    timer.add(Phaser.Timer.SECOND * 4, () => {
       this.progressGame()
     })
-    timer.start()
     this.input.onDown.add(() => {
       timer.stop()
       this.progressGame()
     }, this);
 
-    // TODO wait on this so you can see him run away
+    timer.add(Phaser.Timer.SECOND, () => {
+      let winMessage
+      let splashImage
 
-    this.successSound = this.game.add.audio('success')
-    if (this.game.ba.win === false) {
-      winMessage = "Nooo... my candy! q.q"
-      splashImage = new LoseAnimation(this.game)
-      this.message = new HeaderText(this.game, winMessage, 75)
-    } else {
-      winMessage = "My candy is safe!"
-      splashImage = new WinSplash(this.game)
-      this.message = new HeaderText(this.game, winMessage, this.game.height - 100)
-      this.game.ba.win = true
-      this.successSound.play()
-    }
-    this.gordie.destroy()
-    this.assetsToKill.push(splashImage)
+      this.successSound = this.game.add.audio('success')
 
+      if (this.game.ba.win === false) {
+        winMessage = "Nooo... my candy! q.q"
+        splashImage = new LoseAnimation(this.game)
+        this.message = new HeaderText(this.game, winMessage, 75)
+      } else {
+        winMessage = "My candy is safe!"
+        splashImage = new WinSplash(this.game)
+        this.message = new HeaderText(this.game, winMessage, this.game.height - 100)
+        this.game.ba.win = true
+        this.successSound.play()
+      }
+      this.gordie.destroy()
+      this.assetsToKill.push(splashImage)
+    })
+
+    timer.start()
 
     this.saveVarsToLocalStorage();
 
