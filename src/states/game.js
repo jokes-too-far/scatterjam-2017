@@ -64,10 +64,12 @@ class Game extends Phaser.State {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
          gordie.startBuilding();
-         castle.addHealth();
          //console.log("buffed health to ", castle.health)
          this.emitSandParticles(gordie.x)
-         sandMeter.removeSand()
+         if (castle.health<castle.myMaxHealth){
+           sandMeter.removeSand()
+         }
+         castle.addHealth();
        }
      }
 
