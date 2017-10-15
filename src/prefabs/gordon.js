@@ -2,7 +2,6 @@ const SPRITE_SIZE=128;
 const MAX_VELOCITY = 250;
 const ACCELERATION = 25;
 
-var space;
 //Documentation for Phaser's (2.6.2) sprites:: phaser.io/docs/2.6.2/Phaser.Sprite.html
 class Gordon extends Phaser.Sprite {
 
@@ -80,7 +79,7 @@ class Gordon extends Phaser.Sprite {
           this.body.velocity.x += ACCELERATION
         }
     }
-    if (this.left < 0 || this.right > this.game.width) {
+    if (this.left < 0 || this.right > this.game.width + this.width) {
       this.body.velocity.x = 0
     }
   }
