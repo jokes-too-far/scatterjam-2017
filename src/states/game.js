@@ -38,6 +38,8 @@ class Game extends Phaser.State {
     this.timerDisplay = new TimerDisplay(this.game, timer)
     this.displayLevelName()
 
+    this.destroySound = this.game.add.audio('destroy')
+
     var height = this.game.height
     ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) + 64 * 2.5
@@ -165,6 +167,10 @@ class Game extends Phaser.State {
     ralph.body.velocity.x = 50
     this.game.camera.shake(0.005, 50);
 
+    if(!this.destroySound.isPlaying) {
+      this.destroySound.play()
+    }
+
     this.emitSandParticles(sandcastle.x)
   }
 
@@ -205,11 +211,18 @@ class Game extends Phaser.State {
       this.input.onDown.add(this.endGame, this)
       timer.stop()
     }, this)
+    const f2Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F2)
+    f2Key.onDown.add(() => {
+      timer.stop()
+      this.game.ba.win = false
+      this.endGame()
+    }, this)
   }
 
   displayLevelName(){
     var header = new HeaderText(this.game, this.game.ba.level.name)
     this.game.time.events.add(2000, function() {
+          header.bg.remove()
           this.game.add.tween(header).to({x: this.game.width}, 2000, Phaser.Easing.Linear.None, true);
           this.game.add.tween(header).to({alpha: 0}, 2000, Phaser.Easing.Linear.None, true);
         }, this);

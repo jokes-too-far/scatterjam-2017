@@ -33,7 +33,7 @@ class BackgroundHorizon extends Phaser.TileSprite {
 class WetBackgroundHorizon extends Phaser.TileSprite {
 
   constructor(game) {
-    super(game, game.width * .6, game.height * percentOfSky, game.width, tileSize, 'tileable-horizon-sand')
+    super(game, game.width * .6, Math.ceil(game.height * percentOfSky), game.width, tileSize, 'tileable-horizon-sand')
     this.tint = wetTint;
     game.add.existing(this)
   }
