@@ -61,8 +61,6 @@ class Game extends Phaser.State {
 
         var sandspotRight = sandspot.x + (sandspot.width / 2)
         var sandspotLeft = sandspot.x - (sandspot.width / 2)
-        //console.log('gordie X: ', gordie.x, ' sandspotLeft: ', sandspotLeft, ' sandspotRight ', sandspotRight);
-        //console.log('sandMeter.sand: ', sandMeter.sand, ' sandMeter.maxSand: ', sandMeter.maxSand);
         if(gordie.x <= sandspotRight && gordie.x >= sandspotLeft && sandMeter.sand < sandMeter.maxSand){
 
             const gotSand = sandMeter.addSand()
@@ -99,7 +97,6 @@ class Game extends Phaser.State {
        if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
          found = 'true';
          gordie.startBuilding();
-         //console.log("buffed health to ", castle.health)
          this.emitSandParticles(gordie.x)
          if (castle.health<castle.myMaxHealth){
            sandMeter.removeSand()
@@ -246,7 +243,6 @@ class Game extends Phaser.State {
     var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
     var maxTiles = this.game.ba.level.gridSpaces
     var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
-    console.log(this.game.width, ' ', maxTiles, ' ',wetTileLocation, ' ',sandPositionX);
     wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 64,0))
   }
 }
