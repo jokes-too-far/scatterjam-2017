@@ -6,7 +6,7 @@ const widthPerSand = 50
 class SandMeter extends Phaser.Sprite {
 
   constructor(game) {
-    super(game, padding, game.height - padding, 'meterFill')
+    super(game, padding * 2, game.height - padding, 'meterFill')
     new Label(game, this)
     this.anchor.setTo(0, 1)
     game.add.existing(this)
@@ -15,6 +15,7 @@ class SandMeter extends Phaser.Sprite {
     this.sand = 2
     this.width = padding + (this.sand * widthPerSand)
     new Background(game, this)
+    new RedBar(game)
 
     // Gross hack to get the battery fill lines above the bar itself
     this.bringToTop()
@@ -39,10 +40,10 @@ class SandMeter extends Phaser.Sprite {
   }
 
   update() {
-    const targetWidth = padding + (this.sand * widthPerSand)
+    const targetWidth = (this.sand * widthPerSand)
     this.width += (targetWidth - this.width) * 0.1
-    if (this.sand === 0) {
-      this.tint = 0xff0000
+    if (this.sand === 1) {
+      this.tint = 0xffff00
     } else if (this.sand === this.maxSand) {
       this.tint = 0x00ff00
     } else {
@@ -51,7 +52,6 @@ class SandMeter extends Phaser.Sprite {
   }
 
 }
-
 
 class Label extends Phaser.Text {
 
@@ -64,6 +64,16 @@ class Label extends Phaser.Text {
 
   update() {}
 
+}
+
+class RedBar extends Phaser.Sprite {
+  constructor(game) {
+    super(game, padding, game.height - padding, 'meterFill')
+    this.anchor.setTo(0, 1)
+    this.width = padding
+    this.tint = 0xff0000
+    game.add.existing(this)
+  }
 }
 
 class Background extends Phaser.Sprite {
