@@ -6,6 +6,7 @@ import HeaderText from '../prefabs/headerText'
 import SandEmitter from '../prefabs/sandEmitter'
 import SandMeter from '../prefabs/sandMeter'
 import Candy from '../prefabs/candy'
+import WetSand from '../prefabs/wetSand'
 
 var escapeKey;
 var ralphLaneY;
@@ -16,6 +17,7 @@ var ralph, gordie, candy
 var castles = [];
 var sandEmitter;
 var sandMeter;
+var wetSands = [];
 
 class Game extends Phaser.State {
 
@@ -47,13 +49,33 @@ class Game extends Phaser.State {
     sandMeter = new SandMeter(this.game);
     candy = new Candy(this.game, 64, castleLaneY - 20, 0);
 
+    //randomize wet sand location
+    //what tile is wet?
+    var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
+    var maxTiles = this.game.ba.level.gridSpaces
+    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
+    console.log(this.game.width, ' ', maxTiles, ' ',wetTileLocation, ' ',sandPositionX);
+    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 64,0))
+
+
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
-      if (gordie.x > this.game.width * 0.6) {
-        const gotSand = sandMeter.addSand()
-        gordie.startBuilding();
-        return;
+      //is Gordie on a sand tile?  and does his bucket have room?
+      for (var sandspot of wetSands) {
+
+        var sandspotRight = sandspot.x + (sandspot.width / 2)
+        var sandspotLeft = sandspot.x - (sandspot.width / 2)
+        console.log('gordie X: ', gordie.x, ' sandspotLeft: ', sandspotLeft, ' sandspotRight ', sandspotRight);
+        console.log('sandMeter.sand: ', sandMeter.sand, ' sandMeter.maxSand: ', sandMeter.maxSand);
+        if(gordie.x <= sandspotRight && gordie.x >= sandspotLeft && sandMeter.sand < sandMeter.maxSand){
+
+            const gotSand = sandMeter.addSand()
+            gordie.startBuilding();
+            return;
+
+        }
       }
+
 
       if (sandMeter.sand === 0) {
         // no sand! oh no
@@ -168,7 +190,7 @@ class Game extends Phaser.State {
   }
 
   moveToEndState() {
-    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie, candy].concat(castles)
+    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie, candy].concat(castles).concat(wetSands)
     castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
