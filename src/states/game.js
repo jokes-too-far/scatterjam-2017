@@ -189,6 +189,12 @@ class Game extends Phaser.State {
       this.input.onDown.add(this.endGame, this)
       timer.stop()
     }, this)
+    const f2Key = this.game.input.keyboard.addKey(Phaser.Keyboard.F2)
+    f2Key.onDown.add(() => {
+      timer.stop()
+      this.game.ba.win = false
+      this.endGame()
+    }, this)
   }
 
   displayLevelName(){
