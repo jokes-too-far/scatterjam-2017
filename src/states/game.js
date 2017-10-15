@@ -40,6 +40,9 @@ class Game extends Phaser.State {
 
     this.destroySound = this.game.add.audio('destroy')
     this.loserSound = this.game.add.audio('loser')
+    this.levelMusic = this.game.add.audio('level')
+    this.levelMusic.loopFull(0.6)
+    // this.levelMusic.play()
 
     var height = this.game.height
     ralphLaneY = height / 3 + 64
@@ -198,6 +201,7 @@ class Game extends Phaser.State {
   }
 
   endGame() {
+    this.levelMusic.stop()
     this.timerDisplay.kill();
     this.moveToEndState()
   }
