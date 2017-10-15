@@ -44,7 +44,7 @@ class Game extends Phaser.State {
     var height = this.game.height
     ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) + 64 * 2.5
-    castleLaneY = height / 3 +16
+    castleLaneY = height / 3
 
     sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
