@@ -10,8 +10,7 @@ class TitleGraphic extends Phaser.Sprite {
     game.add.existing(this)
 
     this.events.onDestroy.add(() => {
-      console.log('detah');
-      this.bg.destroy()
+      this.bg.remove()
     })
   }
 
