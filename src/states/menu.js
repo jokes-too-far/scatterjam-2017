@@ -1,5 +1,6 @@
 import Background from '../prefabs/background'
 import TitleGraphic from '../prefabs/titleGraphic'
+import Sun from '../prefabs/Sun'
 
 var music
 
@@ -11,6 +12,7 @@ class Menu extends Phaser.State {
 
   create() {
     new Background(this.game)
+    new Sun(this.game, this.game.width - 50, 50)
 
     this.assetsToClear = []
     const text = new TitleGraphic(this.game, 'Beach Annihilation!')
