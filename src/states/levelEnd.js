@@ -16,12 +16,17 @@ class EndLevel extends Phaser.State {
     if (this.game.ba.win === false) {
       winMessage = "Nooo... my candy! q.q"
     }
+    else {
+      this.game.ba.win = true; //because nobody's setting this
+    }
     this.message = new HeaderText(this.game, winMessage)
 
     this.saveVarsToLocalStorage();
 
     // FACE THE OTHER WAY YOU CRAZY RALPH YOU
     this.ralph.scale.x *= -1;
+    this.ralph.animations.currentAnim.frameRate = 30;
+    this.ralph.animations.currentAnim.restart();
 
     var timer = this.game.time.create(false)
     timer.add(Phaser.Timer.SECOND * 3, () => {
@@ -62,7 +67,7 @@ class EndLevel extends Phaser.State {
     this.clearAssets()
     var winning = this.game.ba.win
     this.resetGlobalVariables();
-    if(winning && this.game.ba.level){
+    if(winning && this.game.ba.level.lastLevel===false){
       this.game.state.start('game', false)
       return
     }

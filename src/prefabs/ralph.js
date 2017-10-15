@@ -1,5 +1,4 @@
 const SPRITE_SIZE=128;
-const MAX_VELOCITY = -50
 var space;
 
 class Ralph extends Phaser.Sprite {
@@ -19,8 +18,8 @@ class Ralph extends Phaser.Sprite {
   }
 
   update() {
-    if (this.body.velocity.x > MAX_VELOCITY) {
-      this.body.velocity.x  -= 2
+    if (this.body.velocity.x > this.game.ba.level.ralphMaxSpeed) {
+      this.body.velocity.x  -= this.game.ba.level.ralphVelocity
     }
 
     // Uncomment this to see the physics collision box
