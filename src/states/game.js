@@ -5,13 +5,14 @@ import SandCastle from '../prefabs/sandcastleSmall'
 import HeaderText from '../prefabs/headerText'
 import SandEmitter from '../prefabs/sandEmitter'
 import SandMeter from '../prefabs/sandMeter'
+import Candy from '../prefabs/candy'
 
 var escapeKey;
 var ralphLaneY;
 var playerLaneY;
 var castleLaneY;
 var timer;
-var ralph, gordie
+var ralph, gordie, candy
 var castles = [];
 var sandEmitter;
 var sandMeter;
@@ -44,6 +45,7 @@ class Game extends Phaser.State {
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
     gordie = new Gordon(this.game, playerLaneY, 0);
     sandMeter = new SandMeter(this.game);
+    candy = new Candy(this.game, 64, castleLaneY, 0);
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
