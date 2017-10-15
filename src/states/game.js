@@ -39,6 +39,7 @@ class Game extends Phaser.State {
     this.displayLevelName()
 
     this.destroySound = this.game.add.audio('destroy')
+    this.loserSound = this.game.add.audio('loser')
 
     var height = this.game.height
     ralphLaneY = height / 3 + 64
@@ -182,6 +183,7 @@ class Game extends Phaser.State {
     candy.x = 0;
     candy.y = 0;
       // trigger game over.  he took your candy!
+    this.loserSound.play()
     this.endGame();
   }
 
