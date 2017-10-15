@@ -1,4 +1,6 @@
 import HeaderText from '../prefabs/HeaderText'
+import WinSplash from '../prefabs/WinSplash'
+import LoseAnimation from '../prefabs/LoseAnimation'
 
 class EndLevel extends Phaser.State {
 
@@ -12,15 +14,23 @@ class EndLevel extends Phaser.State {
   }
 
   create() {
-    var winMessage = "My candy is safe!"
+    let winMessage
+    let splashImage
+
     this.successSound = this.game.add.audio('success')
     if (this.game.ba.win === false) {
       winMessage = "Nooo... my candy! q.q"
+      splashImage = new LoseAnimation(this.game)
+      this.message = new HeaderText(this.game, winMessage, 75)
     } else {
-      this.game.ba.win = true; //because nobody's setting this
+      winMessage = "My candy is safe!"
+      splashImage = new WinSplash(this.game)
+      this.message = new HeaderText(this.game, winMessage, this.game.height - 100)
+      this.game.ba.win = true
       this.successSound.play()
     }
-    this.message = new HeaderText(this.game, winMessage)
+    this.assetsToKill.push(splashImage)
+
 
     this.saveVarsToLocalStorage();
 
@@ -40,9 +50,7 @@ class EndLevel extends Phaser.State {
     }, this);
   }
 
-  saveVarsToLocalStorage(){
-
-  }
+  saveVarsToLocalStorage(){}
 
   resetGlobalVariables(){
     var currentLevel = this.game.ba.currentLevel + 1;

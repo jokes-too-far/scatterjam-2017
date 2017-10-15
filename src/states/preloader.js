@@ -24,6 +24,7 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('gordon', '../../assets/gordon.png', 128, 128, 18)
     this.game.load.spritesheet('sandcastleSmall', '../../assets/sandcastle-small.png', 128, 128, 4)
     this.game.load.spritesheet('candy','../../assets/candy.png', 128, 128, 1)
+    this.game.load.spritesheet('lose-screen','../../assets/lose-screen.png', 512, 512, 4)
 
     this.game.load.image('wet-sand', '../../assets/wet-sand.png')
     this.game.load.image('tileable-ground-sand', '../../assets/tileable-ground-sand.png')
@@ -33,6 +34,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('meterFill', '../../assets/pixel.png')
     this.game.load.image('titleGraphic', '../../assets/title.png')
     this.game.load.image('textBackground', '../../assets/tileable-title-background.png')
+    this.game.load.image('victory-screen','../../assets/victory-screen.png')
 
     this.game.load.audio('title', ['assets/sounds/title.wav']);
     this.game.load.audio('digging', ['assets/sounds/digging.ogg'])
