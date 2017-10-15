@@ -142,6 +142,19 @@ class Game extends Phaser.State {
   }
 
   update() {
+    if (ralph.x < 0) {
+      if(this.game.ba.win === false){
+        return;
+      }
+      this.game.ba.win = false;
+      this.game.ba.timer.stop();
+      //play animation of bro eating candy
+      const timer = this.game.time.create(false)
+      timer.add(Phaser.Timer.SECOND * 1.5, () => {
+        this.moveToEndState()
+      })
+      timer.start();
+    }
 
     for (const sandcastle of castles) {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
@@ -241,8 +254,8 @@ class Game extends Phaser.State {
     //what tile is wet?
     var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
     var maxTiles = this.game.ba.level.gridSpaces
-    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 32;
-    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 64,0))
+    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
+    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 46,0))
   }
 }
 

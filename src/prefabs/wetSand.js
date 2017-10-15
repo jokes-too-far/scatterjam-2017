@@ -4,7 +4,7 @@ class WetSand extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, frame) {
-    super(game, x, y, 'tileable-ground-sand', frame)
+    super(game, x, y, 'wet-sand', frame)
 
     this.tint = 0xb4a050;
     this.anchor.setTo(.5);
