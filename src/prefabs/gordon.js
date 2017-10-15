@@ -32,6 +32,8 @@ class Gordon extends Phaser.Sprite {
     if (this.animations.currentAnim.name =="build" && this.animations.currentAnim.isPlaying==true){
       //console.log('current anim: ', this.animations.currentAnim.name, ', isplaying = ', this.animations.currentAnim.isPlaying)
       return;
+    } else {
+      this.digging.stop()
     }
     if (this.game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
