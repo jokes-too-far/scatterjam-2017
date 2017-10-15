@@ -1,5 +1,6 @@
 import Background from '../prefabs/background'
-import HeaderText from '../prefabs/HeaderText'
+import TitleGraphic from '../prefabs/titleGraphic'
+import TextBackground from '../prefabs/textBackground'
 
 var music
 
@@ -13,8 +14,10 @@ class Menu extends Phaser.State {
     new Background(this.game)
 
     this.assetsToClear = []
-    const text = new HeaderText(this.game, 'Beach Annihilation!')
+    const textBG = new TextBackground(this.game, this.game.world.centerY)
+    const text = new TitleGraphic(this.game, 'Beach Annihilation!')
     this.assetsToClear.push(text)
+    this.assetsToClear.push(textBG)
     music = this.game.add.audio('title');
     music.play();
     this.input.onDown.add(this.startGame, this);
