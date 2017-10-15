@@ -4,7 +4,7 @@
     "name": "Tiny Tyrade",
     "gridSpaces": 15,
     "setupTimeSeconds": 20,
-    "levelTimeSeconds": 10,
+    "levelTimeSeconds": 30,
     "enemy": {
       "spacesPerSecond": 2
     },
@@ -15,7 +15,7 @@
     "name": "CRAB PEOPLE",
     "gridSpaces": 15,
     "setupTimeSeconds": 20,
-    "levelTimeSeconds": 10,
+    "levelTimeSeconds": 60,
     "enemy": {
       "spacesPerSecond": 2
     },

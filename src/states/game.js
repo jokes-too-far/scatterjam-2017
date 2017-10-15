@@ -47,7 +47,7 @@ class Game extends Phaser.State {
 
     const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
     buildButton.onDown.add(() => {
-      if (gordie.x > this.game.width * 0.8) {
+      if (gordie.x > this.game.width * 0.6) {
         const gotSand = sandMeter.addSand()
         return;
       }
