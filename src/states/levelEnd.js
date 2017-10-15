@@ -8,14 +8,18 @@ class EndLevel extends Phaser.State {
     super();
   }
 
-  init(ralph, assetsToRemove) {
+  init(ralph, gordie, assetsToRemove) {
     this.ralph = ralph
+    this.gordie = gordie
     this.assetsToKill = assetsToRemove
   }
 
   create() {
     let winMessage
     let splashImage
+
+    // TODO make sure I didn't nuke some sounds in a merge?
+    // TODO wait on this so you can see him run away
 
     this.successSound = this.game.add.audio('success')
     if (this.game.ba.win === false) {
@@ -29,6 +33,7 @@ class EndLevel extends Phaser.State {
       this.game.ba.win = true
       this.successSound.play()
     }
+    this.gordie.destroy()
     this.assetsToKill.push(splashImage)
 
 

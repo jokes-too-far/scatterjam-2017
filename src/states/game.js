@@ -213,10 +213,10 @@ class Game extends Phaser.State {
   }
 
   moveToEndState() {
-    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie, candy].concat(castles).concat(wetSands)
+    var assetsToClear = [sandMeter, sandEmitter, ralph, candy].concat(castles).concat(wetSands)
     castles = [];
     wetSands = [];
-    this.game.state.start('endLevel', false, false, ralph, assetsToClear)
+    this.game.state.start('endLevel', false, false, ralph, gordie, assetsToClear)
   }
 
   setUpDebug() {
