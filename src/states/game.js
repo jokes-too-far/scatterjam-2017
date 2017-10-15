@@ -56,8 +56,8 @@ class Game extends Phaser.State {
       this.makeWetSand();
     }
 
-    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
-    buildButton.onDown.add(() => {
+    const digButton =this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN)
+    digButton.onDown.add(() => {
       //is Gordie on a sand tile?  and does his bucket have room?
       for (var sandspot of wetSands) {
 
@@ -84,6 +84,12 @@ class Game extends Phaser.State {
         }
       }
 
+
+    })
+
+
+    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.UP)
+    buildButton.onDown.add(() => {
 
       if (sandMeter.sand === 0) {
         // no sand! oh no
