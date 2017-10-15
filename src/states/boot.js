@@ -34,7 +34,7 @@ class Boot extends Phaser.State {
   initGlobalVariables(){
     var levels = this.game.cache.getJSON('levels')
     this.game.ba = {
-      dev_mode: true,
+      dev_mode: false,
       currentLevel: 1,
       level: levels[0],
       win: true
