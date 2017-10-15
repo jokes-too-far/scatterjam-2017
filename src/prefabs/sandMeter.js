@@ -11,7 +11,7 @@ class SandMeter extends Phaser.Sprite {
     this.anchor.setTo(0, 1)
     game.add.existing(this)
 
-    this.sand = 0
+    this.sand = 2
   }
 
   addSand() {
