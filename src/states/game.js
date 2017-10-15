@@ -47,7 +47,7 @@ class Game extends Phaser.State {
     var height = this.game.height
     ralphLaneY = height / 3 + 64
     playerLaneY = (height / 3) + 64 * 2.5
-    castleLaneY = height / 3 +16
+    castleLaneY = height / 3
 
     sandEmitter = new SandEmitter(this.game, castleLaneY)
     ralph = new Ralph(this.game, this.game.width, ralphLaneY, 0);
@@ -59,8 +59,8 @@ class Game extends Phaser.State {
       this.makeWetSand();
     }
 
-    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.B)
-    buildButton.onDown.add(() => {
+    const digButton =this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN)
+    digButton.onDown.add(() => {
       //is Gordie on a sand tile?  and does his bucket have room?
       for (var sandspot of wetSands) {
 
@@ -87,6 +87,12 @@ class Game extends Phaser.State {
         }
       }
 
+
+    })
+
+
+    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.UP)
+    buildButton.onDown.add(() => {
 
       if (sandMeter.sand === 0) {
         // no sand! oh no

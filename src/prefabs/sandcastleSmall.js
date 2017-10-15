@@ -5,7 +5,6 @@ class SandcastleSmall extends Phaser.Sprite {
     super(game, x, y, 'sandcastleSmall')
     this.tint = 0xb4a050;
     this.frame = 0;
-    this.scale.setTo(1.5,1.5);
     game.physics.enable(this, Phaser.Physics.ARCADE)
     this.body.immovable = true
     // Set Anchor to the center of your sprite
