@@ -113,6 +113,8 @@ class Game extends Phaser.State {
       this.game.physics.arcade.collide(ralph, sandcastle, this.collisionHandler, null, this)
     }
 
+    this.game.physics.arcade.collide(ralph, candy, this.candyCollisionHandler, null, this)
+
     var newCastles = []
     for (var castle of castles) {
       if(castle.health > 0){
@@ -135,6 +137,17 @@ class Game extends Phaser.State {
     this.emitSandParticles(sandcastle.x)
   }
 
+  candyCollisionHandler(ralph, candy) {
+    this.game.ba.win = false;
+    // make candy move with Ralph
+    ralph.addChild(candy);
+    //reset the candy position relative to Ralph
+    candy.x = 0;
+    candy.y = 0;
+      // trigger game over.  he took your candy!
+    this.endGame();
+  }
+
   emitSandParticles(x) {
     sandEmitter.x = x
     sandEmitter.start(true, 200, null, 5)
@@ -146,7 +159,7 @@ class Game extends Phaser.State {
   }
 
   moveToEndState() {
-    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie].concat(castles)
+    var assetsToClear = [sandMeter, sandEmitter, ralph, gordie, candy].concat(castles)
     castles = [];
     this.game.state.start('endLevel', false, false, ralph, assetsToClear)
   }
