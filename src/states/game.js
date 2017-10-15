@@ -59,86 +59,86 @@ class Game extends Phaser.State {
       this.makeWetSand();
     }
 
-    const digButton =this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN)
-    digButton.onDown.add(() => {
-      //is Gordie on a sand tile?  and does his bucket have room?
-      for (var sandspot of wetSands) {
 
-        var sandspotRight = sandspot.x + (sandspot.width / 2)
-        var sandspotLeft = sandspot.x - (sandspot.width / 2)
-        if(gordie.x <= sandspotRight && gordie.x >= sandspotLeft && sandMeter.sand < sandMeter.maxSand){
+    this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN, Phaser.Keyboard).onDown.add(this.dig, this);
+    this.game.input.keyboard.addKey(Phaser.Keyboard.S, Phaser.Keyboard).onDown.add(this.dig, this);
 
-            const gotSand = sandMeter.addSand()
-            if (sandspot.health == 1){
-              this.makeWetSand();
+    this.game.input.keyboard.addKey(Phaser.Keyboard.UP).onDown.add(this.build, this)
+    this.game.input.keyboard.addKey(Phaser.Keyboard.W).onDown.add(this.build, this)
+  }
+
+  dig() {
+    //is Gordie on a sand tile?  and does his bucket have room?
+    for (var sandspot of wetSands) {
+      var sandspotRight = sandspot.x + (sandspot.width / 2)
+      var sandspotLeft = sandspot.x - (sandspot.width / 2)
+      if(gordie.x <= sandspotRight && gordie.x >= sandspotLeft && sandMeter.sand < sandMeter.maxSand){
+
+          const gotSand = sandMeter.addSand()
+          if (sandspot.health == 1){
+            this.makeWetSand();
+          }
+          sandspot.damage(1);
+          gordie.startBuilding();
+
+          var newWetSands = []
+          for (var sand of wetSands) {
+            if(sand.health > 0){
+              newWetSands.push(sand);
             }
-            sandspot.damage(1);
-            gordie.startBuilding();
-
-            var newWetSands = []
-            for (var sand of wetSands) {
-              if(sand.health > 0){
-                newWetSands.push(sand);
-              }
-            }
-            wetSands = newWetSands;
-            return;
-
-        }
+          }
+          wetSands = newWetSands;
+          return;
       }
+    }
+  }
 
+  build() {
 
-    })
+    if (sandMeter.sand === 0) {
+      // no sand! oh no
+      return;
+    }
 
+    // if there is a castle above gordie
+   var found = 'false';
+   var ralphFound = 'false';
+   var candyFound = 'false';
 
-    const buildButton = this.game.input.keyboard.addKey(Phaser.Keyboard.UP)
-    buildButton.onDown.add(() => {
-
-      if (sandMeter.sand === 0) {
-        // no sand! oh no
-        return;
-      }
-
-      // if there is a castle above gordie
-     var found = 'false';
-     var ralphFound = 'false';
-     var candyFound = 'false';
-
-     for (var castle of castles) {
-       if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
-         found = 'true';
-         gordie.startBuilding();
-         this.emitSandParticles(gordie.x)
-         if (castle.health<castle.myMaxHealth){
-           sandMeter.removeSand()
-         }
-         castle.addHealth();
-       }
-     }
-
-     // is ralph above gordie?
-     if(gordie.x <= ralph.x + (ralph.width / 2) && gordie.x >= ralph.x - (ralph.width / 2)){
-       ralphFound = 'true';
-       console.log("How dare you build on me?")
-     }
-
-     // is the candy above gordie?
-     if(gordie.x <= candy.x + (candy.width / 2) && gordie.x >= candy.x - (candy.width / 2)){
-       candyFound = 'true';
-       console.log("Sand on your candy? Yuck!")
-     }
-
-     if(found == 'true' || ralphFound == 'true' || candyFound == 'true'){
-       //nothing to do for now
-     }
-     else {
-       // add a new castle
+   for (var castle of castles) {
+     if(gordie.x <= castle.x + (castle.width / 2) && gordie.x >= castle.x - (castle.width / 2)){
+       found = 'true';
        gordie.startBuilding();
-       castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
        this.emitSandParticles(gordie.x)
-       sandMeter.removeSand()
+       if (castle.health<castle.myMaxHealth){
+         sandMeter.removeSand()
+       }
+       castle.addHealth();
      }
-    })
+   }
+
+   // is ralph above gordie?
+   if(gordie.x <= ralph.x + (ralph.width / 2) && gordie.x >= ralph.x - (ralph.width / 2)){
+     ralphFound = 'true';
+     console.log("How dare you build on me?")
+   }
+
+   // is the candy above gordie?
+   if(gordie.x <= candy.x + (candy.width / 2) && gordie.x >= candy.x - (candy.width / 2)){
+     candyFound = 'true';
+     console.log("Sand on your candy? Yuck!")
+   }
+
+   if(found == 'true' || ralphFound == 'true' || candyFound == 'true'){
+     //nothing to do for now
+   }
+   else {
+     // add a new castle
+     gordie.startBuilding();
+     castles.push(new SandCastle(this.game, gordie.x, castleLaneY))
+     this.emitSandParticles(gordie.x)
+     sandMeter.removeSand()
+   }
   }
 
   update() {
@@ -252,10 +252,24 @@ class Game extends Phaser.State {
   makeWetSand() {
     //randomize wet sand location
     //what tile is wet?
-    var wetTileLocation = this.game.rnd.integerInRange(1, this.game.ba.level.gridSpaces)
     var maxTiles = this.game.ba.level.gridSpaces
-    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 64;
-    wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 46,0))
+    var wetTileLocation = this.game.rnd.integerInRange(2, (maxTiles-3)/2) +
+                          this.game.rnd.integerInRange(2, (maxTiles-3)/2)
+
+    var sandPositionX = this.game.width / maxTiles * wetTileLocation - 32;
+    var found = false;
+    for (var ws of wetSands) {
+      if(ws.x == sandPositionX){
+        found = true;
+      }
+    }
+    if (found){
+      this.makeWetSand();
+    }
+    else{
+        wetSands.push(new WetSand(this.game, sandPositionX,playerLaneY - 46,0))
+    }
+
   }
 }
 
