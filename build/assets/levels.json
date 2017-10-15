@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Tiny Tyrade",
+    "gridSpaces": 15,
+    "setupTimeSeconds": 20,
+    "levelTimeSeconds": 30,
+    "sandSpots":3,
+    "ralphVelocity":2,
+    "ralphMaxSpeed":-50,
+    "lastLevel":false,
+    "mutators": []
+  },
+  {
+    "id": 2,
+    "name": "HOT SAND",
+    "gridSpaces": 15,
+    "setupTimeSeconds": 20,
+    "levelTimeSeconds": 30,
+    "sandSpots":3,
+    "ralphVelocity":2,
+    "ralphMaxSpeed":-90,
+    "lastLevel":false,
+    "mutators":["crabs"]
+  },
+  {
+    "id": 3,
+    "name": "RALPH'S REVENGE",
+    "gridSpaces": 15,
+    "setupTimeSeconds": 20,
+    "levelTimeSeconds": 25,
+    "sandSpots":3,
+    "ralphVelocity":4,
+    "ralphMaxSpeed":-110,
+    "lastLevel":true,
+    "mutators":["losers"]
+  }
+]
