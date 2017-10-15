@@ -17,12 +17,16 @@ class Menu extends Phaser.State {
     this.assetsToClear.push(text)
     music = this.game.add.audio('title');
     music.play();
-    this.input.onDown.add(this.startGame, this);
+        this.input.onDown.add(this.startGame, this);
+    var self = this;
+    this.game.input.keyboard.onPressCallback = function(e){
+      self.startGame();}
   }
 
   update() {}
 
   startGame () {
+    this.game.input.keyboard.onPressCallback = null;
     for (const asset of this.assetsToClear) {
       asset.destroy()
     }
